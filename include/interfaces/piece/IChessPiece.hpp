@@ -20,7 +20,7 @@ namespace boardgame::piece::chess
         Black
     };
 
-    class IChessPiece : public boardgame::piece::IPiece
+    class IChessPiece : public IPiece
     {
     public:
         virtual ~IChessPiece() = default;
