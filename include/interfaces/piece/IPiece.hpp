@@ -1,8 +1,10 @@
 #pragma once
 
-namespace BoardGame::Piece
+namespace boardgame::piece
 {
     class IPiece
     {
+        public:
+        virtual ~IPiece() = default;
     };
 }
