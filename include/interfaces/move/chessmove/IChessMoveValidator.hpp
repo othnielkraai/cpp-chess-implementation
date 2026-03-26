@@ -2,10 +2,11 @@
 
 #include "interfaces/board/chessboard/IChessBoard.hpp"
 #include "interfaces/move/chessmove/IChessMove.hpp"
+#include "interfaces/move/IMoveValidator.hpp"
 
 namespace boardgame::move::chess
 {
-    class IChessMoveValidator
+    class IChessMoveValidator : public boardgame::move::IMoveValidator
     {
     public:
         virtual ~IChessMoveValidator() = default;

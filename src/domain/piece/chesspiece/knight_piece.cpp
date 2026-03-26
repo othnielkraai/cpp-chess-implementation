@@ -16,4 +16,12 @@ namespace boardgame::piece::chess{
         return m_MoveStrategy;
     }
 
+    bool KnightPiece::hasMoved() const {
+        return m_HasMoved;
+    }
+
+    void KnightPiece::setHasMoved(bool hasMoved) {
+        m_HasMoved = hasMoved;
+    }
+
 }

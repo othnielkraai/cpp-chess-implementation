@@ -12,10 +12,13 @@ namespace boardgame::piece::chess
         virtual ChessPieceType getType() const override;
         virtual ChessPieceColor getColor() const override;
         virtual const boardgame::move::chess::IChessMoveStrategy& getMoveStrategy() const override;
+        virtual bool hasMoved() const override;
+        virtual void setHasMoved(bool hasMoved) override;
 
     private:
         boardgame::move::chess::QueenMoveStrategy m_MoveStrategy;
         ChessPieceType m_PieceType = ChessPieceType::Queen;
         ChessPieceColor m_PieceColor;
+        bool m_HasMoved = false;
     };
 }

@@ -19,6 +19,7 @@ namespace boardgame::move::chess
 
         const int direction = isWhite ? -1 : 1;
         const int startRow = isWhite ? 6 : 1;
+        const int promotionRow = isWhite ? 0 : 7;
 
         // 1 stap vooruit
         boardgame::core::Position oneStepForward{
@@ -28,9 +29,17 @@ namespace boardgame::move::chess
 
         if (board.isInside(oneStepForward) && !board.getPieceAt(oneStepForward))
         {
-            moves.push_back(std::make_shared<ChessMove>(from, oneStepForward));
+            if (oneStepForward.row == promotionRow)
+            {
+                moves.push_back(std::make_shared<ChessMove>(
+                    from, oneStepForward, ChessMoveType::Promotion));
+            }
+            else
+            {
+                moves.push_back(std::make_shared<ChessMove>(from, oneStepForward));
+            }
 
-            // 2 stappen vooruit vanaf startpositie
+            // 2 stappen vooruit
             boardgame::core::Position twoStepsForward{
                 from.row + (2 * direction),
                 from.col
@@ -40,11 +49,12 @@ namespace boardgame::move::chess
                 board.isInside(twoStepsForward) &&
                 !board.getPieceAt(twoStepsForward))
             {
-                moves.push_back(std::make_shared<ChessMove>(from, twoStepsForward));
+                moves.push_back(std::make_shared<ChessMove>(
+                    from, twoStepsForward));
             }
         }
 
-        // diagonaal links slaan
+        // capture links
         boardgame::core::Position captureLeft{
             from.row + direction,
             from.col - 1
@@ -53,13 +63,23 @@ namespace boardgame::move::chess
         if (board.isInside(captureLeft))
         {
             auto targetPiece = board.getPieceAt(captureLeft);
+
             if (targetPiece && targetPiece->getColor() != piece.getColor())
             {
-                moves.push_back(std::make_shared<ChessMove>(from, captureLeft));
+                if (captureLeft.row == promotionRow)
+                {
+                    moves.push_back(std::make_shared<ChessMove>(
+                        from, captureLeft, ChessMoveType::Promotion));
+                }
+                else
+                {
+                    moves.push_back(std::make_shared<ChessMove>(
+                        from, captureLeft));
+                }
             }
         }
 
-        // diagonaal rechts slaan
+        // capture rechts
         boardgame::core::Position captureRight{
             from.row + direction,
             from.col + 1
@@ -68,9 +88,67 @@ namespace boardgame::move::chess
         if (board.isInside(captureRight))
         {
             auto targetPiece = board.getPieceAt(captureRight);
+
             if (targetPiece && targetPiece->getColor() != piece.getColor())
             {
-                moves.push_back(std::make_shared<ChessMove>(from, captureRight));
+                if (captureRight.row == promotionRow)
+                {
+                    moves.push_back(std::make_shared<ChessMove>(
+                        from, captureRight, ChessMoveType::Promotion));
+                }
+                else
+                {
+                    moves.push_back(std::make_shared<ChessMove>(
+                        from, captureRight));
+                }
+            }
+        }
+
+        // en passant links
+        boardgame::core::Position enPassantLeft{
+            from.row,
+            from.col - 1
+        };
+
+        if (board.isInside(enPassantLeft))
+        {
+            auto target = board.getPieceAt(enPassantLeft);
+
+            if (target &&
+                target->getColor() != piece.getColor() &&
+                target->getType() == boardgame::piece::chess::ChessPieceType::Pawn)
+            {
+                boardgame::core::Position to{
+                    from.row + direction,
+                    from.col - 1
+                };
+
+                moves.push_back(std::make_shared<ChessMove>(
+                    from, to, ChessMoveType::EnPassant));
+            }
+        }
+
+        // en passant rechts
+        boardgame::core::Position enPassantRight{
+            from.row,
+            from.col + 1
+        };
+
+        if (board.isInside(enPassantRight))
+        {
+            auto target = board.getPieceAt(enPassantRight);
+
+            if (target &&
+                target->getColor() != piece.getColor() &&
+                target->getType() == boardgame::piece::chess::ChessPieceType::Pawn)
+            {
+                boardgame::core::Position to{
+                    from.row + direction,
+                    from.col + 1
+                };
+
+                moves.push_back(std::make_shared<ChessMove>(
+                    from, to, ChessMoveType::EnPassant));
             }
         }
 

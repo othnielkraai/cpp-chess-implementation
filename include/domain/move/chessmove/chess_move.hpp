@@ -13,11 +13,14 @@ namespace boardgame::move::chess
             const boardgame::core::Position& to
         );
 
+        ChessMoveType getMoveType() const override;
+
         boardgame::core::Position getFrom() const override;
         boardgame::core::Position getTo() const override;
 
     private:
         boardgame::core::Position m_from;
         boardgame::core::Position m_to;
+        ChessMoveType m_moveType = ChessMoveType::Normal;
     };
 }

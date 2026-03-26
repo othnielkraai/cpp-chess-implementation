@@ -10,6 +10,11 @@ namespace boardgame::move::chess
     {
     }
 
+    ChessMoveType ChessMove::getMoveType() const
+    {
+        return m_moveType;
+    }
+
     boardgame::core::Position ChessMove::getFrom() const
     {
         return m_from;

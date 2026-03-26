@@ -15,4 +15,12 @@ namespace boardgame::piece::chess{
     const boardgame::move::chess::IChessMoveStrategy& RookPiece::getMoveStrategy() const {
         return m_MoveStrategy;
     }
+
+    bool RookPiece::hasMoved() const {
+        return m_HasMoved;
+    }
+
+    void RookPiece::setHasMoved(bool hasMoved) {
+        m_HasMoved = hasMoved;
+    }
 }

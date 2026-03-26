@@ -114,4 +114,14 @@ namespace boardgame::board::chess
 
         return result;
     }
+
+    void ChessBoard::setLastMove(std::unique_ptr<boardgame::move::chess::IChessMove> move)
+    {
+        m_LastMove = std::move(move);
+    }
+
+    const std::unique_ptr<boardgame::move::chess::IChessMove>& ChessBoard::lastMove() const
+    {
+        return m_LastMove;
+    }
 }
