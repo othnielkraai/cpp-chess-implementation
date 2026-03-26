@@ -7,6 +7,7 @@
 #include "interfaces/board/chessboard/IChessBoard.hpp"
 #include "interfaces/move/chessmove/IChessMove.hpp"
 #include "interfaces/piece/IChessPiece.hpp"
+#include "interfaces/piece/IChessPiece.hpp"
 
 namespace boardgame::move::chess
 {
@@ -17,7 +18,7 @@ namespace boardgame::move::chess
 
         virtual std::vector<std::shared_ptr<IChessMove>> generateMoves(
             const boardgame::board::chess::IChessBoard& board,
-            const boardgame::piece::chess::IChessPiece& piece
+            boardgame::piece::chess::ChessPieceColor color
         ) const = 0;
     };
 }

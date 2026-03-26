@@ -1,4 +1,4 @@
-#include "domain/pieces/chesspiece/king_piece.hpp"
+#include "domain/piece/chesspiece/king_piece.hpp"
 
 namespace boardgame::piece::chess{
 
@@ -10,6 +10,10 @@ namespace boardgame::piece::chess{
 
     ChessPieceColor KingPiece::getColor() const{
         return m_PieceColor;
+    }
+
+    const boardgame::move::chess::IChessMoveStrategy& KingPiece::getMoveStrategy() const {
+        return m_MoveStrategy;
     }
 
 }

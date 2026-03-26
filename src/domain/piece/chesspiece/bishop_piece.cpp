@@ -12,4 +12,8 @@ namespace boardgame::piece::chess{
         return m_PieceColor;
     }
 
+    const boardgame::move::chess::IChessMoveStrategy& BishopPiece::getMoveStrategy() const {
+        return m_MoveStrategy;
+    }
+
 }

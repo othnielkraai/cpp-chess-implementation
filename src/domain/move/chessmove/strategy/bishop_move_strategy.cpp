@@ -1,5 +1,6 @@
 #include "domain/move/chessmove/strategy/bishop_move_strategy.hpp"
 #include "domain/move/chessmove/chess_move.hpp"
+
 namespace boardgame::move::chess
 {
     std::vector<std::shared_ptr<IChessMove>> BishopMoveStrategy::generateMoves(

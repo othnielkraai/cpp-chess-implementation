@@ -1,6 +1,7 @@
 #pragma once
 
 #include "interfaces/piece/IPiece.hpp"
+#include "interfaces/move/chessmove/IChessMoveStrategy.hpp"
 
 namespace boardgame::piece::chess
 {
@@ -26,6 +27,7 @@ namespace boardgame::piece::chess
         virtual ~IChessPiece() = default;
         virtual ChessPieceType getType() const = 0;
         virtual ChessPieceColor getColor() const = 0;
+        virtual const boardgame::move::chess::IChessMoveStrategy& getMoveStrategy() const = 0;
     };
 
 }

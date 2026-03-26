@@ -1,4 +1,4 @@
-#include "domain/pieces/chesspiece/queen_piece.hpp"
+#include "domain/piece/chesspiece/queen_piece.hpp"
 
 namespace boardgame::piece::chess{
 
@@ -10,6 +10,10 @@ namespace boardgame::piece::chess{
 
     ChessPieceColor QueenPiece::getColor() const{
         return m_PieceColor;
+    }
+
+    const boardgame::move::chess::IChessMoveStrategy& QueenPiece::getMoveStrategy() const {
+        return m_MoveStrategy;
     }
 
 }

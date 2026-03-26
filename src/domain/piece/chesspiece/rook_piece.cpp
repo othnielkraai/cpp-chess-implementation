@@ -1,4 +1,4 @@
-#include "domain/pieces/chesspiece/rook_piece.hpp"
+#include "domain/piece/chesspiece/rook_piece.hpp"
 
 namespace boardgame::piece::chess{
 
@@ -12,4 +12,7 @@ namespace boardgame::piece::chess{
         return m_PieceColor;
     }
 
+    const boardgame::move::chess::IChessMoveStrategy& RookPiece::getMoveStrategy() const {
+        return m_MoveStrategy;
+    }
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "interfaces/piece/IChessPiece.hpp"
+#include "domain/move/chessmove/strategy/knight_move_strategy.hpp"
 
 namespace boardgame::piece::chess
 {
@@ -10,9 +11,11 @@ namespace boardgame::piece::chess
         KnightPiece(ChessPieceColor color);
         virtual ChessPieceType getType() const override;
         virtual ChessPieceColor getColor() const override;
+        virtual const boardgame::move::chess::IChessMoveStrategy& getMoveStrategy() const override;
 
     private:
-        ChessPieceType m_PieceType = ChessPieceType::Bishop;
+        boardgame::move::chess::KnightMoveStrategy m_MoveStrategy;
+        ChessPieceType m_PieceType = ChessPieceType::Knight;
         ChessPieceColor m_PieceColor;
     };
 }
