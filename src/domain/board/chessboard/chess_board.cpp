@@ -56,7 +56,7 @@ namespace boardgame::board::chess
             return false;
         }
 
-        if (m_Board.find(to) != m_Board.end()) //dit moet kunnen (want capture) maar voor nu even niet, of eerst piece verwijderen wanneer ik capture kan ookk maar check ik later
+        if (m_Board.find(to) != m_Board.end())
         {
             return false;
         }
