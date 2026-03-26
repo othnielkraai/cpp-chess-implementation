@@ -4,10 +4,10 @@
 
 namespace boardgame::piece::chess
 {
-    class BischopPiece : public IChessPiece
+    class BishopPiece : public IChessPiece
     {
     public:
-        BischopPiece(ChessPieceColor color);
+        BishopPiece(ChessPieceColor color);
         virtual ChessPieceType getType() const override;
         virtual ChessPieceColor getColor() const override;
 

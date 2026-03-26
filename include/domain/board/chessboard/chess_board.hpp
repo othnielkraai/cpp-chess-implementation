@@ -1,6 +1,6 @@
 #pragma once
 
-#include "interfaces/board/IChessBoard.hpp"
+#include "interfaces/board/chessboard/IChessBoard.hpp"
 #include <memory>
 
 namespace boardgame::board::chess
