@@ -1,10 +1,11 @@
 #pragma once
 
-#include "interfaces/board/IBoard.hpp"
-#include "interfaces/piece/IChessPiece.hpp"
 #include <vector>
 #include <map>
 #include <memory>
+
+#include "interfaces/board/IBoard.hpp"
+#include "interfaces/piece/chesspiece/IChessPiece.hpp"
 
 namespace boardgame::board::chess
 {

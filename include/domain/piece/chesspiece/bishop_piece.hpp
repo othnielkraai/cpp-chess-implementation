@@ -1,6 +1,8 @@
 #pragma once
 
-#include "interfaces/piece/IChessPiece.hpp"
+#include <memory>
+
+#include "interfaces/piece/chesspiece/IChessPiece.hpp"
 #include "domain/move/chessmove/strategy/bishop_move_strategy.hpp"
 
 

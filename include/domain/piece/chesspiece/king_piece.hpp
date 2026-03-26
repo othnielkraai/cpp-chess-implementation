@@ -1,6 +1,6 @@
 #pragma once
 
-#include "interfaces/piece/IChessPiece.hpp"
+#include "interfaces/piece/chesspiece/IChessPiece.hpp"
 #include "domain/move/chessmove/strategy/king_move_strategy.hpp"
 
 namespace boardgame::piece::chess

@@ -3,7 +3,7 @@
 #include <vector>
 #include <memory>
 #include "core/common/position.hpp"
-#include "interfaces/piece/IChessPiece.hpp"
+#include "interfaces/piece/chesspiece/IChessPiece.hpp"
 #include "interfaces/game/IGame.hpp"
 #include "interfaces/board/chessboard/IChessBoard.hpp"
 #include "interfaces/move/chessmove/IChessMove.hpp"

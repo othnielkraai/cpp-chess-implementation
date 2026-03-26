@@ -6,7 +6,7 @@
 #include "interfaces/move/IMoveStrategy.hpp"
 #include "interfaces/board/chessboard/IChessBoard.hpp"
 #include "interfaces/move/chessmove/IChessMove.hpp"
-#include "interfaces/piece/IChessPiece.hpp"
+#include "interfaces/piece/chesspiece/IChessPiece.hpp"
 #include "core/common/position.hpp"
 
 namespace boardgame::move::chess

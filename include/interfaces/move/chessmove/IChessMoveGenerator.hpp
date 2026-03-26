@@ -6,8 +6,9 @@
 #include "interfaces/move/IMoveGenerator.hpp"
 #include "interfaces/board/chessboard/IChessBoard.hpp"
 #include "interfaces/move/chessmove/IChessMove.hpp"
-#include "interfaces/piece/IChessPiece.hpp"
-#include "interfaces/piece/IChessPiece.hpp"
+#include "interfaces/piece/chesspiece/IChessPiece.hpp"
+
+
 
 namespace boardgame::move::chess
 {
