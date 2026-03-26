@@ -21,7 +21,8 @@ namespace boardgame::board::chess
         virtual std::map<boardgame::core::Position, boardgame::piece::chess::IChessPiece*> getAllPieces() const override;
         virtual std::map<boardgame::core::Position, boardgame::piece::chess::IChessPiece*> getPieces(boardgame::piece::chess::ChessPieceColor color) const override;
         virtual void setLastMove(std::unique_ptr<boardgame::move::chess::IChessMove> move) override;
-        virtual const std::unique_ptr<boardgame::move::chess::IChessMove>& lastMove() const override;
+        virtual const boardgame::move::chess::IChessMove* lastMove() const override;
+        virtual std::unique_ptr<IChessBoard> clone() const override;
     private:
         std::map<boardgame::core::Position, std::unique_ptr<boardgame::piece::chess::IChessPiece>> m_Board;
         std::unique_ptr<boardgame::move::chess::IChessMove> m_LastMove;

@@ -18,6 +18,8 @@ namespace boardgame::move::chess
         boardgame::core::Position getFrom() const override;
         boardgame::core::Position getTo() const override;
 
+        std::unique_ptr<IChessMove> clone() const override;
+
     private:
         boardgame::core::Position m_from;
         boardgame::core::Position m_to;

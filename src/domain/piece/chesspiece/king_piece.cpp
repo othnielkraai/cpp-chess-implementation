@@ -23,4 +23,11 @@ namespace boardgame::piece::chess{
     void KingPiece::setHasMoved(bool hasMoved) {
         m_HasMoved = hasMoved;
     }
+
+    std::unique_ptr<IChessPiece> KingPiece::clone() const
+    {
+        auto newPiece = std::make_unique<KingPiece>(m_PieceColor);
+        newPiece->setHasMoved(m_HasMoved);
+        return newPiece;
+    }
 }

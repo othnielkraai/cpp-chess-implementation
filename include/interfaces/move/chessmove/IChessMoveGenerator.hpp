@@ -18,7 +18,8 @@ namespace boardgame::move::chess
 
         virtual std::vector<std::shared_ptr<IChessMove>> generateMoves(
             const boardgame::board::chess::IChessBoard& board,
-            boardgame::piece::chess::ChessPieceColor color
+            const boardgame::piece::chess::IChessPiece& piece,
+            const boardgame::core::Position& from
         ) const = 0;
     };
 }

@@ -30,6 +30,7 @@ namespace boardgame::piece::chess
         virtual const boardgame::move::chess::IChessMoveStrategy& getMoveStrategy() const = 0;
         virtual bool hasMoved() const = 0;
         virtual void setHasMoved(bool hasMoved) = 0;
+        virtual std::unique_ptr<IChessPiece> clone() const = 0;
     };
 
 }

@@ -120,8 +120,28 @@ namespace boardgame::board::chess
         m_LastMove = std::move(move);
     }
 
-    const std::unique_ptr<boardgame::move::chess::IChessMove>& ChessBoard::lastMove() const
+    const boardgame::move::chess::IChessMove* ChessBoard::lastMove() const
     {
-        return m_LastMove;
+        return m_LastMove.get();
+    }
+
+    std::unique_ptr<IChessBoard> ChessBoard::clone() const
+    {
+        auto newBoard = std::make_unique<ChessBoard>();
+
+        for (const auto &[pos, piece] : m_Board)
+        {
+            if (piece)
+            {
+                newBoard->placePiece(pos, std::unique_ptr<boardgame::piece::chess::IChessPiece>(piece->clone()));
+            }
+        }
+
+        if (m_LastMove)
+        {
+            newBoard->setLastMove(std::unique_ptr<boardgame::move::chess::IChessMove>(m_LastMove->clone()));
+        }
+
+        return newBoard;
     }
 }

@@ -21,6 +21,7 @@ namespace boardgame::board::chess
         virtual std::map<boardgame::core::Position, boardgame::piece::chess::IChessPiece*> getAllPieces() const = 0;
         virtual std::map<boardgame::core::Position, boardgame::piece::chess::IChessPiece*> getPieces(boardgame::piece::chess::ChessPieceColor color) const = 0;
         virtual void setLastMove(std::unique_ptr<boardgame::move::chess::IChessMove> move) = 0 ;
-        virtual const std::unique_ptr<boardgame::move::chess::IChessMove>& lastMove() const = 0;
+        virtual const boardgame::move::chess::IChessMove* lastMove() const = 0;
+        virtual std::unique_ptr<IChessBoard> clone() const = 0;
     };
 }

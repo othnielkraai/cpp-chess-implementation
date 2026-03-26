@@ -15,7 +15,7 @@ namespace boardgame::game::chess
     public:
         virtual ~IChessGame() = default;
         virtual const boardgame::board::chess::IChessBoard &getBoard() const = 0;
-        virtual void makeMove(const boardgame::move::chess::IChessMove &move) = 0;
+        virtual bool makeMove(const boardgame::move::chess::IChessMove &move) = 0;
         virtual std::vector<std::shared_ptr<boardgame::move::chess::IChessMove>> getLegalMoves(const boardgame::core::Position &position) const = 0;
         virtual boardgame::piece::chess::ChessPieceColor getCurrentPlayer() const = 0;
         virtual bool isCheck() const = 0;

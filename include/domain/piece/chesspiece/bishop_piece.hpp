@@ -15,6 +15,7 @@ namespace boardgame::piece::chess
         virtual const boardgame::move::chess::IChessMoveStrategy& getMoveStrategy() const override;
         virtual bool hasMoved() const override;
         virtual void setHasMoved(bool hasMoved) override;
+        virtual std::unique_ptr<IChessPiece> clone() const override;
 
     private:
         boardgame::move::chess::BishopMoveStrategy m_MoveStrategy;

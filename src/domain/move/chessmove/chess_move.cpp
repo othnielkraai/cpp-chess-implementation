@@ -1,5 +1,5 @@
 #include "domain/move/chessmove/chess_move.hpp"
-
+#include <memory>
 namespace boardgame::move::chess
 {
     ChessMove::ChessMove(
@@ -23,5 +23,10 @@ namespace boardgame::move::chess
     boardgame::core::Position ChessMove::getTo() const
     {
         return m_to;
+    }
+
+    std::unique_ptr<IChessMove> ChessMove::clone() const
+    {
+        return std::make_unique<ChessMove>(m_from, m_to);
     }
 }

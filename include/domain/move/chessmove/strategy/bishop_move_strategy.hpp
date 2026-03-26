@@ -17,5 +17,6 @@ namespace boardgame::move::chess
             const boardgame::piece::chess::IChessPiece& piece,
             const boardgame::core::Position& from
         ) const override;
+        
     };
 }

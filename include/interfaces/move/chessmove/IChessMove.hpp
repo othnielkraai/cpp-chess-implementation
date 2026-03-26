@@ -9,7 +9,8 @@ namespace boardgame::move::chess
         Normal,
         Castling,
         EnPassant,
-        Promotion
+        Promotion,
+        PawnDoubleMove,
     };
 
     class IChessMove : public boardgame::move::IMove
@@ -18,5 +19,6 @@ namespace boardgame::move::chess
         virtual ~IChessMove() = default;
 
         virtual ChessMoveType getMoveType() const = 0;
+        virtual std::unique_ptr<IChessMove> clone() const = 0;
     };
 }
