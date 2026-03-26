@@ -1,8 +1,9 @@
 #pragma once
 
-namespace BoardGame::Game
+namespace boardgame::game
 {
     class IGameRules
     {
+        virtual ~IGameRules() = default;
     };
 }

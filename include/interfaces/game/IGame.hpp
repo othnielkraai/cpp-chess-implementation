@@ -1,8 +1,10 @@
 #pragma once
 
-namespace BoardGame::Game
+namespace boardgame::game
 {
     class IGame
     {
+        virtual ~IGame() = default;
+        virtual bool isGameOver() const = 0;
     };
 }

@@ -1,8 +1,10 @@
 #pragma once
 
-namespace BoardGame::Move
+namespace boardgame::move
 {
     class IMoveStrategy
     {
+    public:
+        virtual ~IMoveStrategy() = default;
     };
 }

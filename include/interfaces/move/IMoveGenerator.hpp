@@ -1,8 +1,12 @@
 #pragma once
 
-namespace BoardGame::Move
+#include <vector>
+
+namespace boardgame::move
 {
     class IMoveGenerator
     {
+    public:
+        virtual ~IMoveGenerator() = default;
     };
 }

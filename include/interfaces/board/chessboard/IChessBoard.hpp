@@ -4,6 +4,7 @@
 #include "interfaces/piece/IChessPiece.hpp"
 #include <vector>
 #include <map>
+#include <memory>
 
 namespace boardgame::board::chess
 {
