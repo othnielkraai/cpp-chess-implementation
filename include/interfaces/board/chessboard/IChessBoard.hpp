@@ -7,6 +7,17 @@
 #include "interfaces/board/IBoard.hpp"
 #include "interfaces/piece/chesspiece/IChessPiece.hpp"
 
+namespace boardgame::move::chess
+{
+    class IChessMove;
+}
+
+namespace boardgame::piece::chess
+{
+    class IChessPiece;
+    enum class ChessPieceColor;
+}
+
 namespace boardgame::board::chess
 {
     class IChessBoard : public IBoard

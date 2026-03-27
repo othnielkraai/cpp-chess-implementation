@@ -4,16 +4,17 @@
 #include "interfaces/board/chessboard/IChessBoard.hpp"
 #include "interfaces/move/chessmove/IChessMove.hpp"
 #include "interfaces/piece/chesspiece/IChessPiece.hpp"
+#include "interfaces/move/chessmove/IChessMoveValidator.hpp"
 
 namespace boardgame::move::chess
 {
-    class PieceMoveValidator
+    class PieceMoveValidator : public IChessMoveValidator
     {
     public:
-        bool isValidMove(
+        virtual bool isValidMove(
             const boardgame::board::chess::IChessBoard& board,
             const boardgame::move::chess::IChessMove& move
-        ) const;
+        ) const override;
 
     private:
         bool isMoveShapeValid(

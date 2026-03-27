@@ -3,7 +3,7 @@
 
 #include "core/common/position.hpp"
 #include "interfaces/board/chessboard/IChessBoard.hpp"
-#include "interfaces/piece/IChessPiece.hpp"
+#include "interfaces/piece/chesspiece/IChessPiece.hpp"
 
 // vervang dit door jouw concrete move class
 #include "domain/move/chessmove/chess_move.hpp"

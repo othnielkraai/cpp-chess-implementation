@@ -4,9 +4,10 @@ namespace boardgame::move::chess
 {
     ChessMove::ChessMove(
         const boardgame::core::Position& from,
-        const boardgame::core::Position& to
+        const boardgame::core::Position& to,
+        ChessMoveType moveType
     )
-        : m_from(from), m_to(to)
+        : m_from(from), m_to(to), m_moveType(moveType)
     {
     }
 

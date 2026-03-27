@@ -9,9 +9,9 @@ namespace boardgame::move::chess
     {
     public:
         ChessMove(
-            const boardgame::core::Position& from,
-            const boardgame::core::Position& to
-        );
+            const boardgame::core::Position &from,
+            const boardgame::core::Position &to,
+            ChessMoveType moveType = ChessMoveType::Normal);
 
         ChessMoveType getMoveType() const override;
 

@@ -3,12 +3,19 @@
 #include "interfaces/board/chessboard/IChessBoard.hpp"
 #include "interfaces/move/chessmove/IChessMove.hpp"
 #include "interfaces/piece/chesspiece/IChessPiece.hpp"
+#include "interfaces/move/chessmove/IChessMoveValidator.hpp"
 
 namespace boardgame::move::chess
 {
-    class KingSafetyValidator
+    class KingSafetyValidator : public IChessMoveValidator
     {
     public:
+        virtual bool isValidMove(
+            const boardgame::board::chess::IChessBoard& board,
+            const boardgame::move::chess::IChessMove& move
+        ) const override;
+
+    private: 
         bool leavesKingInCheck(
             const boardgame::board::chess::IChessBoard& board,
             const boardgame::move::chess::IChessMove& move
@@ -25,7 +32,6 @@ namespace boardgame::move::chess
             boardgame::piece::chess::ChessPieceColor attackingColor
         ) const;
 
-    private:
         bool simulateMoveOnBoard(
             boardgame::board::chess::IChessBoard& board,
             const boardgame::move::chess::IChessMove& move

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <tuple>
+
 namespace boardgame::core{
     struct Position{
         int row;

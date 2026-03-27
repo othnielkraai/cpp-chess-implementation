@@ -9,6 +9,16 @@
 #include "interfaces/piece/chesspiece/IChessPiece.hpp"
 #include "core/common/position.hpp"
 
+namespace boardgame::board::chess
+{
+    class IChessBoard;
+}
+
+namespace boardgame::piece::chess
+{
+    class IChessPiece;
+}
+
 namespace boardgame::move::chess
 {
     class IChessMoveStrategy : public boardgame::move::IMoveStrategy

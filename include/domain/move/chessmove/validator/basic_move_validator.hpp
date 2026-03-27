@@ -2,15 +2,17 @@
 
 #include "interfaces/board/chessboard/IChessBoard.hpp"
 #include "interfaces/move/chessmove/IChessMove.hpp"
+#include "interfaces/move/chessmove/IChessMoveValidator.hpp"
+
 
 namespace boardgame::move::chess
 {
-    class BasicMoveValidator
+    class BasicMoveValidator : public IChessMoveValidator
     {
     public:
-        bool isValidMove(
+        virtual bool isValidMove(
             const boardgame::board::chess::IChessBoard& board,
             const boardgame::move::chess::IChessMove& move
-        ) const;
+        ) const override;
     };
 }

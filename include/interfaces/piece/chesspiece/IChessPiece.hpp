@@ -3,6 +3,12 @@
 #include "interfaces/piece/IPiece.hpp"
 #include "interfaces/move/chessmove/IChessMoveStrategy.hpp"
 
+
+namespace boardgame::move::chess
+{
+    class IChessMoveStrategy;
+}
+
 namespace boardgame::piece::chess
 {
     enum class ChessPieceType

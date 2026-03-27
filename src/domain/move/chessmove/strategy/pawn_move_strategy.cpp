@@ -1,7 +1,7 @@
 #include "domain/move/chessmove/strategy/pawn_move_strategy.hpp"
 
 #include "interfaces/board/chessboard/IChessBoard.hpp"
-#include "interfaces/piece/IChessPiece.hpp"
+#include "interfaces/piece/chesspiece/IChessPiece.hpp"
 #include "domain/move/chessmove/chess_move.hpp"
 
 namespace boardgame::move::chess
@@ -111,7 +111,6 @@ namespace boardgame::move::chess
         if (lastMove &&
             lastMove->getMoveType() == ChessMoveType::PawnDoubleMove)
         {
-            const auto lastFrom = lastMove->getFrom();
             const auto lastTo = lastMove->getTo();
 
             // er moet een enemy pawn naast deze pawn geëindigd zijn

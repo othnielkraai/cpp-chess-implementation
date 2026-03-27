@@ -6,6 +6,14 @@
 
 namespace boardgame::move::chess
 {
+    bool KingSafetyValidator::isValidMove(
+        const boardgame::board::chess::IChessBoard& board,
+        const boardgame::move::chess::IChessMove& move
+    ) const
+    {
+        return !leavesKingInCheck(board, move);
+    }
+
     bool KingSafetyValidator::leavesKingInCheck(
         const boardgame::board::chess::IChessBoard& board,
         const boardgame::move::chess::IChessMove& move
@@ -16,6 +24,8 @@ namespace boardgame::move::chess
         {
             return true;
         }
+
+        const auto color = sourcePiece->getColor();
 
         std::unique_ptr<boardgame::board::chess::IChessBoard> clonedBoard = board.clone();
         if (!clonedBoard)
@@ -28,7 +38,7 @@ namespace boardgame::move::chess
             return true;
         }
 
-        return isKingInCheck(*clonedBoard, sourcePiece->getColor());
+        return isKingInCheck(*clonedBoard, color);
     }
 
     bool KingSafetyValidator::simulateMoveOnBoard(
@@ -144,6 +154,7 @@ namespace boardgame::move::chess
             {
                 return false;
             }
+
             return utils::isPathClear(board, from, target);
         }
 

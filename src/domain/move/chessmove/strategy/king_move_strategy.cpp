@@ -3,7 +3,7 @@
 #include <array>
 
 #include "interfaces/board/chessboard/IChessBoard.hpp"
-#include "interfaces/piece/IChessPiece.hpp"
+#include "interfaces/piece/chesspiece/IChessPiece.hpp"
 #include "domain/move/chessmove/chess_move.hpp"
 
 namespace boardgame::move::chess
