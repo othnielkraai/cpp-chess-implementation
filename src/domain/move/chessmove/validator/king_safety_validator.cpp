@@ -27,7 +27,7 @@ namespace boardgame::move::chess
 
         const auto color = sourcePiece->getColor();
 
-        std::unique_ptr<boardgame::board::chess::IChessBoard> clonedBoard = board.clone();
+        std::unique_ptr<boardgame::board::chess::IChessBoard> clonedBoard = board.cloneBoard();
         if (!clonedBoard)
         {
             return true;
@@ -64,7 +64,8 @@ namespace boardgame::move::chess
             }
 
             boardgame::core::Position capturedPawnPos{from.row, to.col};
-            return board.removePiece(capturedPawnPos);
+            if (board.removePiece(capturedPawnPos) != nullptr) return true;
+            return false;
         }
 
         case ChessMoveType::Castling:

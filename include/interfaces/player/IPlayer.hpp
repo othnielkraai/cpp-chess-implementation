@@ -1,8 +1,9 @@
 #pragma once
 
-namespace BoardGame::Player
+namespace boardgame::player
 {
     class IPlayer
     {
+        ~IPlayer() = default;
     };
 }

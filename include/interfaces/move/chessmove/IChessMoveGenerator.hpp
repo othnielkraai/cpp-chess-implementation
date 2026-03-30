@@ -25,6 +25,6 @@ namespace boardgame::move::chess
         /// @param board The chess board to generate moves for.
         /// @param piece The chess piece to generate moves for.
         /// @param from The position from which to generate moves.
-        virtual std::vector<std::shared_ptr<IChessMove>> generateMoves(const IChessBoard &board, const IChessPiece &piece, const Position &from) const = 0;
+        virtual std::vector<std::unique_ptr<IChessMove>> generateMoves(const IChessBoard &board, const IChessPiece &piece, const Position &from) const = 0;
     };
 }

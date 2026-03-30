@@ -38,10 +38,11 @@ namespace boardgame::board::chess
         /// @return A pointer to the chess piece at the position, or nullptr if no piece is there.
         virtual IChessPiece *getPieceAt(const Position &pos) const = 0;
 
-        /// @brief Places a chess piece at the specified position.
+        /// @brief Places a chess piece at the specified position using std::move.
         /// @param pos The position to place the piece.
         /// @param piece The chess piece to place.
-        virtual void placePiece(const Position &pos, std::unique_ptr<IChessPiece> piece) = 0;
+        /// @return A boolean, true when no piece on given position false otherwise
+        virtual bool placePiece(const Position &pos, std::unique_ptr<IChessPiece> piece) = 0;
         
         /// @brief Removes the chess piece at the specified position and returns it.
         /// @param pos The position to remove the piece from.
@@ -51,16 +52,14 @@ namespace boardgame::board::chess
         /// @brief Moves a piece from one position to another.
         /// @param from The position to move the piece from.
         /// @param to The position to move the piece to.
-        virtual void movePiece(const Position &from, const Position &to) = 0;
+        /// @return A boolean if move was succesfull, false otherwis
+        virtual bool movePiece(const Position &from, const Position &to) = 0;
 
         /// @brief Gets all chess pieces on the board.
         /// @return A map of positions to chess pieces.
         virtual const std::map<Position, std::unique_ptr<IChessPiece>>& getPieces() const = 0;
 
-        /// @brief Gets all chess pieces of a specific color on the board.
-        /// @param color The color of the pieces to get.
-        /// @return A map of positions to chess pieces of the specified color.
-        virtual std::map<Position, std::unique_ptr<IChessPiece>> getPieces(ChessPieceColor color) const = 0;
+        virtual std::map<Position, const IChessPiece*> getPieces(ChessPieceColor color) const = 0;
 
         /// @brief Checks if a position is within the bounds of the chess board.
         /// @param pos The position to check.
@@ -96,11 +95,12 @@ namespace boardgame::board::chess
 
         /// @brief Sets the last move made on the board.
         /// @param move The move to set as the last move.
-        virtual void setLastMove(const IChessMove &move) = 0;
+        /// @return A boolean true if succesfully set, false otherwise
+        virtual bool setLastMove(std::unique_ptr<IChessMove> move) = 0;
 
         /// @brief Gets the last move made on the board.
-        /// @return An optional containing the last move if it exists, or std::nullopt if no move has been made.
-        virtual std::optional<IChessMove> getLastMove() const = 0;
+        /// @return A raw ptr to the saved unique ptr, nullptr when no last move is set
+        virtual IChessMove* getLastMove() const = 0;
 
         /// @brief Creates a deep copy of the chess board.
         /// @return A unique pointer to the cloned chess board.

@@ -2,49 +2,21 @@
 
 namespace boardgame::move::chess::utils
 {
-    bool isOccupied(
-        const boardgame::board::chess::IChessBoard& board,
-        const boardgame::core::Position& pos
-    )
-    {
-        return board.getPieceAt(pos) != nullptr;
-    }
+    // bool isDestinationOccupiedByOwnPiece(
+    //     const boardgame::board::chess::IChessBoard& board,
+    //     const boardgame::move::chess::IChessMove& move
+    // )
+    // {
+    //     auto* sourcePiece = board.getPieceAt(move.getFrom());
+    //     auto* destinationPiece = board.getPieceAt(move.getTo());
 
-    bool isOccupiedByEnemy(
-        const boardgame::board::chess::IChessBoard& board,
-        const boardgame::core::Position& pos,
-        boardgame::piece::chess::ChessPieceColor myColor
-    )
-    {
-        auto* piece = board.getPieceAt(pos);
-        return piece != nullptr && piece->getColor() != myColor;
-    }
+    //     if (sourcePiece == nullptr || destinationPiece == nullptr)
+    //     {
+    //         return false;
+    //     }
 
-    bool isOccupiedByOwnColor(
-        const boardgame::board::chess::IChessBoard& board,
-        const boardgame::core::Position& pos,
-        boardgame::piece::chess::ChessPieceColor myColor
-    )
-    {
-        auto* piece = board.getPieceAt(pos);
-        return piece != nullptr && piece->getColor() == myColor;
-    }
-
-    bool isDestinationOccupiedByOwnPiece(
-        const boardgame::board::chess::IChessBoard& board,
-        const boardgame::move::chess::IChessMove& move
-    )
-    {
-        auto* sourcePiece = board.getPieceAt(move.getFrom());
-        auto* destinationPiece = board.getPieceAt(move.getTo());
-
-        if (sourcePiece == nullptr || destinationPiece == nullptr)
-        {
-            return false;
-        }
-
-        return sourcePiece->getColor() == destinationPiece->getColor();
-    }
+    //     return sourcePiece->getColor() == destinationPiece->getColor();
+    // }
 
     int rowDelta(const boardgame::move::chess::IChessMove& move)
     {

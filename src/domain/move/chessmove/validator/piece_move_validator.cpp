@@ -5,6 +5,8 @@
 
 namespace boardgame::move::chess
 {
+    PieceMoveValidator::PieceMoveValidator(std::unique_ptr<IChessMoveValidator> validator): m_SpecialMoveValidator{std::move(validator)}{}
+
     bool PieceMoveValidator::isValidMove(
         const boardgame::board::chess::IChessBoard& board,
         const boardgame::move::chess::IChessMove& move
@@ -90,14 +92,7 @@ namespace boardgame::move::chess
             return true;
         }
 
-        case ChessMoveType::PawnDoubleMove:
-            return m_SpecialMoveValidator.isPawnDoubleMoveValid(board, move, piece);
-
-        case ChessMoveType::EnPassant:
-            return m_SpecialMoveValidator.isEnPassantMoveValid(board, move, piece);
-
-        case ChessMoveType::Promotion:
-            return m_SpecialMoveValidator.isPromotionMoveValid(board, move, piece);
+        return m_SpecialMoveValidator->isValidMove(board, move);
 
         default:
             return false;
@@ -176,7 +171,7 @@ namespace boardgame::move::chess
 
         if (move.getMoveType() == ChessMoveType::Castling)
         {
-            return m_SpecialMoveValidator.isCastlingMoveValid(board, move, piece);
+            return m_SpecialMoveValidator->isValidMove(board, move);
         }
 
         if (move.getMoveType() != ChessMoveType::Normal)

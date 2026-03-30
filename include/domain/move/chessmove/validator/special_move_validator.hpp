@@ -7,10 +7,14 @@
 
 namespace boardgame::move::chess
 {
-    class SpecialMoveValidator
+    class SpecialMoveValidator : public IChessMoveValidator
     {
     public:
-
+        virtual bool isValidMove(
+            const boardgame::board::chess::IChessBoard& board,
+            const boardgame::move::chess::IChessMove& move
+        ) const override;
+    private:
         bool isPawnDoubleMoveValid(
             const boardgame::board::chess::IChessBoard& board,
             const boardgame::move::chess::IChessMove& move,

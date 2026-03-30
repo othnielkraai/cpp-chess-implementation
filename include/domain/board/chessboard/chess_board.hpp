@@ -15,6 +15,7 @@
 #include "interfaces/piece/chesspiece/IChessPiece.hpp"
 #include "interfaces/move/chessmove/IChessMove.hpp"
 
+// Namespaces
 using namespace boardgame::core;
 using namespace boardgame::move::chess;
 using namespace boardgame::piece::chess;
@@ -26,17 +27,16 @@ namespace boardgame::board::chess
     public:
         virtual IChessPiece* getPieceAt(const Position& pos) const override;
 
-        virtual void placePiece(const Position& pos, std::unique_ptr<IChessPiece> piece) override;
+        virtual bool placePiece(const Position& pos, std::unique_ptr<IChessPiece> piece) override;
 
         virtual std::unique_ptr<IChessPiece> removePiece(const Position &pos) override;
 
-        virtual void movePiece(const Position &from, const Position &to) override;
+        virtual bool movePiece(const Position &from, const Position &to) override;
 
         virtual const std::map<Position, std::unique_ptr<IChessPiece>>& getPieces() const override;
 
-        virtual std::map<Position, std::unique_ptr<IChessPiece>> getPieces(ChessPieceColor color) const override;
+        virtual std::map<Position, const IChessPiece*> getPieces(ChessPieceColor color) const override;
 
-        // queries
         virtual bool isInside(const Position& pos) const override;
 
         virtual bool isEmpty(const Position &pos) const override;
@@ -49,14 +49,14 @@ namespace boardgame::board::chess
 
         virtual Position findKing(ChessPieceColor color) const override;
 
-        virtual void setLastMove(const IChessMove &move) override;
+        virtual bool setLastMove(std::unique_ptr<IChessMove> move) override;
 
-        virtual std::optional<IChessMove> getLastMove() const override;
+        virtual IChessMove* getLastMove() const override;
 
         virtual std::unique_ptr<IChessBoard> cloneBoard() const override;
 
     private:
         std::map<boardgame::core::Position, std::unique_ptr<boardgame::piece::chess::IChessPiece>> m_Board;
-        IChessMove& m_LastMove;
+        std::unique_ptr<IChessMove> m_LastMove;
     };
 }

@@ -5,11 +5,35 @@
 
 namespace boardgame::move::chess
 {
+    bool SpecialMoveValidator::isValidMove(
+        const boardgame::board::chess::IChessBoard &board,
+        const boardgame::move::chess::IChessMove &move) const
+    {
+        auto *piece = board.getPieceAt(move.getFrom());
+        switch (move.getMoveType())
+        {
+        case boardgame::move::chess::ChessMoveType::Castling:
+            return isCastlingMoveValid(board, move, *piece);
+            break;
+        case boardgame::move::chess::ChessMoveType::EnPassant:
+            return isEnPassantMoveValid(board, move, *piece);
+            break;
+        case boardgame::move::chess::ChessMoveType::Promotion:
+            return isPromotionMoveValid(board, move, *piece);
+            break;
+        case boardgame::move::chess::ChessMoveType::PawnDoubleMove:
+            return isPawnDoubleMoveValid(board, move, *piece);
+            break;
+
+        default:
+            return true;
+            break;
+        }
+    }
     bool SpecialMoveValidator::isPawnDoubleMoveValid(
-        const boardgame::board::chess::IChessBoard& board,
-        const boardgame::move::chess::IChessMove& move,
-        const boardgame::piece::chess::IChessPiece& pawn
-    ) const
+        const boardgame::board::chess::IChessBoard &board,
+        const boardgame::move::chess::IChessMove &move,
+        const boardgame::piece::chess::IChessPiece &pawn) const
     {
         const auto from = move.getFrom();
         const auto to = move.getTo();
@@ -44,10 +68,9 @@ namespace boardgame::move::chess
     }
 
     bool SpecialMoveValidator::isCastlingMoveValid(
-        const boardgame::board::chess::IChessBoard& board,
-        const boardgame::move::chess::IChessMove& move,
-        const boardgame::piece::chess::IChessPiece& king
-    ) const
+        const boardgame::board::chess::IChessBoard &board,
+        const boardgame::move::chess::IChessMove &move,
+        const boardgame::piece::chess::IChessPiece &king) const
     {
         using boardgame::piece::chess::ChessPieceType;
 
@@ -78,7 +101,7 @@ namespace boardgame::move::chess
         const int rookCol = kingSide ? 7 : 0;
 
         boardgame::core::Position rookPos{from.row, rookCol};
-        auto* rook = board.getPieceAt(rookPos);
+        auto *rook = board.getPieceAt(rookPos);
 
         if (rook == nullptr)
         {
@@ -104,10 +127,9 @@ namespace boardgame::move::chess
     }
 
     bool SpecialMoveValidator::isEnPassantMoveValid(
-        const boardgame::board::chess::IChessBoard& board,
-        const boardgame::move::chess::IChessMove& move,
-        const boardgame::piece::chess::IChessPiece& pawn
-    ) const
+        const boardgame::board::chess::IChessBoard &board,
+        const boardgame::move::chess::IChessMove &move,
+        const boardgame::piece::chess::IChessPiece &pawn) const
     {
         using boardgame::piece::chess::ChessPieceType;
 
@@ -126,7 +148,7 @@ namespace boardgame::move::chess
             return false;
         }
 
-        const auto* lastMove = board.lastMove();
+        const auto *lastMove = board.getLastMove();
         if (lastMove == nullptr)
         {
             return false;
@@ -137,7 +159,7 @@ namespace boardgame::move::chess
             return false;
         }
 
-        auto* adjacentPiece = board.getPieceAt({from.row, to.col});
+        auto *adjacentPiece = board.getPieceAt({from.row, to.col});
         if (adjacentPiece == nullptr)
         {
             return false;
@@ -162,10 +184,9 @@ namespace boardgame::move::chess
     }
 
     bool SpecialMoveValidator::isPromotionMoveValid(
-        const boardgame::board::chess::IChessBoard& board,
-        const boardgame::move::chess::IChessMove& move,
-        const boardgame::piece::chess::IChessPiece& pawn
-    ) const
+        const boardgame::board::chess::IChessBoard &board,
+        const boardgame::move::chess::IChessMove &move,
+        const boardgame::piece::chess::IChessPiece &pawn) const
     {
         const auto from = move.getFrom();
         const auto to = move.getTo();

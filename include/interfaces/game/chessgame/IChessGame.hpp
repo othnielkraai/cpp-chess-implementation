@@ -23,6 +23,7 @@ namespace boardgame::game::chess
         Draw
     };
 
+    /// @brief class responsible controlling the game
     class IChessGame : public boardgame::game::IGame
     {
     public:

@@ -11,6 +11,8 @@ namespace boardgame::move::chess
     class PieceMoveValidator : public IChessMoveValidator
     {
     public:
+        PieceMoveValidator(std::unique_ptr<IChessMoveValidator> validator);
+
         virtual bool isValidMove(
             const boardgame::board::chess::IChessBoard& board,
             const boardgame::move::chess::IChessMove& move
@@ -55,6 +57,6 @@ namespace boardgame::move::chess
         ) const;
 
     private:
-        SpecialMoveValidator m_SpecialMoveValidator;
+        std::unique_ptr<IChessMoveValidator> m_SpecialMoveValidator;
     };
 }

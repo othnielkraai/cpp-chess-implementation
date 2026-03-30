@@ -2,7 +2,7 @@
 
 namespace boardgame::move::chess
 {
-    std::vector<std::shared_ptr<IChessMove>> ChessMoveGenerator::generateMoves(
+    std::vector<std::unique_ptr<IChessMove>> ChessMoveGenerator::generateMoves(
         const boardgame::board::chess::IChessBoard &board,
         const boardgame::piece::chess::IChessPiece &piece,
         const boardgame::core::Position &from) const
