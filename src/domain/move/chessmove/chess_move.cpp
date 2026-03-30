@@ -1,5 +1,5 @@
 #include "domain/move/chessmove/chess_move.hpp"
-#include <memory>
+
 namespace boardgame::move::chess
 {
     ChessMove::ChessMove(

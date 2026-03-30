@@ -1,7 +1,7 @@
 #pragma once
 
 #include <memory>
-
+ 
 #include "interfaces/move/IMove.hpp"
 
 namespace boardgame::move::chess

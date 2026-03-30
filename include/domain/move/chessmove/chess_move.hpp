@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include "interfaces/move/chessmove/IChessMove.hpp"
 #include "core/common/position.hpp"
 
@@ -13,10 +15,11 @@ namespace boardgame::move::chess
             const boardgame::core::Position &to,
             ChessMoveType moveType = ChessMoveType::Normal);
 
-        ChessMoveType getMoveType() const override;
-
         boardgame::core::Position getFrom() const override;
+        
         boardgame::core::Position getTo() const override;
+
+        ChessMoveType getMoveType() const override;
 
         std::unique_ptr<IChessMove> clone() const override;
 
