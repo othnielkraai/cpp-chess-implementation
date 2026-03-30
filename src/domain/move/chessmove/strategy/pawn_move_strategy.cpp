@@ -1,28 +1,23 @@
 #include "domain/move/chessmove/strategy/pawn_move_strategy.hpp"
 
-#include "interfaces/board/chessboard/IChessBoard.hpp"
-#include "interfaces/piece/chesspiece/IChessPiece.hpp"
-#include "domain/move/chessmove/chess_move.hpp"
 
 namespace boardgame::move::chess
 {
-    std::vector<std::shared_ptr<IChessMove>> PawnMoveStrategy::generateMoves(
-        const boardgame::board::chess::IChessBoard& board,
-        const boardgame::piece::chess::IChessPiece& piece,
-        const boardgame::core::Position& from
+    std::vector<std::unique_ptr<IChessMove>> PawnMoveStrategy::generateMoves(
+        const IChessBoard& board,
+        const IChessPiece& piece,
+        const Position& from
     ) const
     {
-        std::vector<std::shared_ptr<IChessMove>> moves;
+        std::vector<std::unique_ptr<IChessMove>> moves;
 
-        const bool isWhite =
-            piece.getColor() == boardgame::piece::chess::ChessPieceColor::White;
+        const bool isWhite = piece.getColor() == ChessPieceColor::White;
 
         const int direction = isWhite ? -1 : 1;
         const int startRow = isWhite ? 6 : 1;
         const int promotionRow = isWhite ? 0 : 7;
 
-        // 1 stap vooruit
-        boardgame::core::Position oneStepForward{
+        Position oneStepForward{
             from.row + direction,
             from.col
         };
@@ -31,16 +26,15 @@ namespace boardgame::move::chess
         {
             if (oneStepForward.row == promotionRow)
             {
-                moves.push_back(std::make_shared<ChessMove>(
+                moves.push_back(std::make_unique<IChessMove>(
                     from, oneStepForward, ChessMoveType::Promotion));
             }
             else
             {
-                moves.push_back(std::make_shared<ChessMove>(
+                moves.push_back(std::make_unique<IChessMove>(
                     from, oneStepForward, ChessMoveType::Normal));
             }
 
-            // 2 stappen vooruit
             boardgame::core::Position twoStepsForward{
                 from.row + (2 * direction),
                 from.col
@@ -50,12 +44,11 @@ namespace boardgame::move::chess
                 board.isInside(twoStepsForward) &&
                 !board.getPieceAt(twoStepsForward))
             {
-                moves.push_back(std::make_shared<ChessMove>(
+                moves.push_back(std::make_unique<IChessMove>(
                     from, twoStepsForward, ChessMoveType::PawnDoubleMove));
             }
         }
 
-        // capture links
         boardgame::core::Position captureLeft{
             from.row + direction,
             from.col - 1
@@ -69,18 +62,17 @@ namespace boardgame::move::chess
             {
                 if (captureLeft.row == promotionRow)
                 {
-                    moves.push_back(std::make_shared<ChessMove>(
+                    moves.push_back(std::make_unique<IChessMove>(
                         from, captureLeft, ChessMoveType::Promotion));
                 }
                 else
                 {
-                    moves.push_back(std::make_shared<ChessMove>(
+                    moves.push_back(std::make_unique<IChessMove>(
                         from, captureLeft, ChessMoveType::Normal));
                 }
             }
         }
 
-        // capture rechts
         boardgame::core::Position captureRight{
             from.row + direction,
             from.col + 1
@@ -94,43 +86,41 @@ namespace boardgame::move::chess
             {
                 if (captureRight.row == promotionRow)
                 {
-                    moves.push_back(std::make_shared<ChessMove>(
+                    moves.push_back(std::make_unique<IChessMove>(
                         from, captureRight, ChessMoveType::Promotion));
                 }
                 else
                 {
-                    moves.push_back(std::make_shared<ChessMove>(
+                    moves.push_back(std::make_unique<IChessMove>(
                         from, captureRight, ChessMoveType::Normal));
                 }
             }
         }
 
-        // en passant
-        const auto lastMove = board.lastMove();
+        const auto lastMove = board.getLastMove();
 
         if (lastMove &&
             lastMove->getMoveType() == ChessMoveType::PawnDoubleMove)
         {
             const auto lastTo = lastMove->getTo();
 
-            // er moet een enemy pawn naast deze pawn geëindigd zijn
             if (lastTo.row == from.row &&
                 (lastTo.col == from.col - 1 || lastTo.col == from.col + 1))
             {
                 auto target = board.getPieceAt(lastTo);
 
                 if (target &&
-                    target->getType() == boardgame::piece::chess::ChessPieceType::Pawn &&
+                    target->getType() == ChessPieceType::Pawn &&
                     target->getColor() != piece.getColor())
                 {
-                    boardgame::core::Position enPassantTo{
+                    Position enPassantTo{
                         from.row + direction,
                         lastTo.col
                     };
 
                     if (board.isInside(enPassantTo) && !board.getPieceAt(enPassantTo))
                     {
-                        moves.push_back(std::make_shared<ChessMove>(
+                        moves.push_back(std::make_unique<IChessMove>(
                             from, enPassantTo, ChessMoveType::EnPassant));
                     }
                 }

@@ -1,18 +1,13 @@
 #include "domain/move/chessmove/strategy/knight_move_strategy.hpp"
 
-#include <array>
 
-#include "interfaces/board/chessboard/IChessBoard.hpp"
-#include "interfaces/piece/chesspiece/IChessPiece.hpp"
-#include "interfaces/move/chessmove/IChessMove.hpp"
-#include "domain/move/chessmove/chess_move.hpp"
 
 namespace boardgame::move::chess
 {
-    std::vector<std::shared_ptr<IChessMove>> KnightMoveStrategy::generateMoves(
-        const boardgame::board::chess::IChessBoard& board,
-        const boardgame::piece::chess::IChessPiece& piece,
-        const boardgame::core::Position& from
+    std::vector<std::unique_ptr<IChessMove>> KnightMoveStrategy::generateMoves(
+        const IChessBoard& board,
+        const IChessPiece& piece,
+        const Position& from
     ) const
     {
         static constexpr std::array<std::pair<int, int>, 8> offsets{{
@@ -22,7 +17,7 @@ namespace boardgame::move::chess
             { 2, -1}, { 2,  1}
         }};
 
-        std::vector<std::shared_ptr<IChessMove>> moves;
+        std::vector<std::unique_ptr<IChessMove>> moves;
 
         for (const auto& [rowOffset, colOffset] : offsets)
         {
@@ -40,14 +35,14 @@ namespace boardgame::move::chess
 
             if (!targetPiece)
             {
-                moves.push_back(std::make_shared<ChessMove>(from, to));
+                moves.push_back(std::make_unique<IChessMove>(from, to));
                 continue;
             }
 
             if (targetPiece->getColor() != piece.getColor())
             {
 
-                moves.push_back(std::make_shared<ChessMove>(from, to));
+                moves.push_back(std::make_unique<IChessMove>(from, to));
             }
         }
 

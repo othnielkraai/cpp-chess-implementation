@@ -1,15 +1,15 @@
 #include "domain/move/chessmove/strategy/bishop_move_strategy.hpp"
-#include "domain/move/chessmove/chess_move.hpp"
+#include "interfaces/move/chessmove/IChessMoveStrategy.hpp"
 
 namespace boardgame::move::chess
 {
-    std::vector<std::shared_ptr<IChessMove>> BishopMoveStrategy::generateMoves(
+    std::vector<std::unique_ptr<IChessMove>> BishopMoveStrategy::generateMoves(
         const boardgame::board::chess::IChessBoard& board,
         const boardgame::piece::chess::IChessPiece& piece,
         const boardgame::core::Position& from
     ) const
     {
-        std::vector<std::shared_ptr<IChessMove>> moves;
+        std::vector<std::unique_ptr<IChessMove>> moves;
 
         const int directions[4][2] = {
             {-1, -1},
@@ -28,7 +28,7 @@ namespace boardgame::move::chess
                 boardgame::core::Position to{row, col};
                 if (!board.getPieceAt(to))
                 {
-                    moves.push_back(std::make_shared<ChessMove>(from, to));
+                    moves.push_back(std::make_unique<ChessMove>(from, to));
                 }
                 else
                 {
@@ -36,7 +36,7 @@ namespace boardgame::move::chess
 
                     if (targetPiece->getColor() != piece.getColor())
                     {
-                        moves.push_back(std::make_shared<ChessMove>(from, to));
+                        moves.push_back(std::make_unique<ChessMove>(from, to));
                     }
 
                     break;

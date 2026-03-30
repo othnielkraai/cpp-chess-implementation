@@ -16,6 +16,52 @@
 using namespace boardgame::board::chess;
 using namespace boardgame::piece::chess;
 
+#include <iostream>
+#include <iomanip>
+
+void printBoard(const IChessBoard& board)
+{
+    std::cout << "\n";
+
+    for (int row = 0; row < 8; ++row)
+    {
+        std::cout << 8 - row << "  ";
+
+        for (int col = 0; col < 8; ++col)
+        {
+            auto piece = board.getPieceAt({row, col});
+
+            if (!piece)
+            {
+                std::cout << ". ";
+                continue;
+            }
+
+            char symbol = '?';
+
+            switch (piece->getType())
+            {
+                case ChessPieceType::Pawn:   symbol = 'p'; break;
+                case ChessPieceType::Rook:   symbol = 'r'; break;
+                case ChessPieceType::Knight: symbol = 'n'; break;
+                case ChessPieceType::Bishop: symbol = 'b'; break;
+                case ChessPieceType::Queen:  symbol = 'q'; break;
+                case ChessPieceType::King:   symbol = 'k'; break;
+            }
+
+            // wit = hoofdletter
+            if (piece->getColor() == ChessPieceColor::White)
+                symbol = std::toupper(symbol);
+
+            std::cout << symbol << " ";
+        }
+
+        std::cout << "\n";
+    }
+
+    std::cout << "\n   a b c d e f g h\n\n";
+}
+
 
 int main(){
     std::unique_ptr<IChessBoard> board = std::make_unique<ChessBoard>();
@@ -52,5 +98,7 @@ int main(){
         // ===== kings =====
         board->placePiece({7, 4}, std::make_unique<KingPiece>(ChessPieceColor::White));
         board->placePiece({0, 4}, std::make_unique<KingPiece>(ChessPieceColor::Black));
+
+        printBoard(*board);
     return 0;
 }

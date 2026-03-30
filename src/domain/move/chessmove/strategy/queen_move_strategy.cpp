@@ -1,37 +1,29 @@
 #include "domain/move/chessmove/strategy/queen_move_strategy.hpp"
-#include <array>
-
-#include "core/common/position.hpp"
-#include "interfaces/board/chessboard/IChessBoard.hpp"
-#include "interfaces/piece/chesspiece/IChessPiece.hpp"
-
-// vervang dit door jouw concrete move class
-#include "domain/move/chessmove/chess_move.hpp"
 
 namespace boardgame::move::chess
 {
-    std::vector<std::shared_ptr<IChessMove>> QueenMoveStrategy::generateMoves(
-        const boardgame::board::chess::IChessBoard& board,
-        const boardgame::piece::chess::IChessPiece& piece,
-        const boardgame::core::Position& from
+    std::vector<std::unique_ptr<IChessMove>> QueenMoveStrategy::generateMoves(
+        const IChessBoard& board,
+        const IChessPiece& piece,
+        const Position& from
     ) const
     {
         static constexpr std::array<std::pair<int, int>, 8> directions{{
-            {-1,  0}, // omhoog
-            { 1,  0}, // omlaag
-            { 0, -1}, // links
-            { 0,  1}, // rechts
-            {-1, -1}, // linksboven
-            {-1,  1}, // rechtsboven
-            { 1, -1}, // linksonder
-            { 1,  1}  // rechtsonder
+            {-1,  0}, // up
+            { 1,  0}, // down
+            { 0, -1}, // left
+            { 0,  1}, // right
+            {-1, -1}, // up-left
+            {-1,  1}, // up-right
+            { 1, -1}, // down-left
+            { 1,  1}  // down-right
         }};
 
-        std::vector<std::shared_ptr<IChessMove>> moves;
+        std::vector<std::unique_ptr<IChessMove>> moves;
 
         for (const auto& [rowStep, colStep] : directions)
         {
-            boardgame::core::Position current = from;
+           Position current = from;
 
             while (true)
             {
@@ -48,7 +40,7 @@ namespace boardgame::move::chess
                 if (!targetPiece)
                 {
                     moves.push_back(
-                        std::make_shared<ChessMove>(from, current)
+                        std::make_unique<IChessMove>(from, current)
                     );
                     continue;
                 }
@@ -56,7 +48,7 @@ namespace boardgame::move::chess
                 if (targetPiece->getColor() != piece.getColor())
                 {
                     moves.push_back(
-                        std::make_shared<ChessMove>(from, current)
+                        std::make_unique<IChessMove>(from, current)
                     );
                 }
 
