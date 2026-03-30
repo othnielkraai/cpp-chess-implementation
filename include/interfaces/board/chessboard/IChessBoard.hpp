@@ -54,13 +54,13 @@ namespace boardgame::board::chess
         virtual void movePiece(const Position &from, const Position &to) = 0;
 
         /// @brief Gets all chess pieces on the board.
-        /// @return A vector of pointers to all chess pieces.
-        virtual std::vector<IChessPiece *> getAllPieces() const = 0;
+        /// @return A map of positions to chess pieces.
+        virtual const std::map<Position, std::unique_ptr<IChessPiece>>& getPieces() const = 0;
 
         /// @brief Gets all chess pieces of a specific color on the board.
-        /// @param color The color of the pieces to retrieve.
-        /// @return A vector of pointers to the chess pieces of the specified color.
-        virtual std::vector<IChessPiece *> getPieces(ChessPieceColor color) const = 0;
+        /// @param color The color of the pieces to get.
+        /// @return A map of positions to chess pieces of the specified color.
+        virtual std::map<Position, std::unique_ptr<IChessPiece>> getPieces(ChessPieceColor color) const = 0;
 
         /// @brief Checks if a position is within the bounds of the chess board.
         /// @param pos The position to check.

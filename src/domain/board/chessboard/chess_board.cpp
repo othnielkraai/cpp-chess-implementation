@@ -2,7 +2,7 @@
 
 namespace boardgame::board::chess
 {
-    boardgame::piece::chess::IChessPiece *ChessBoard::getPieceAt(boardgame::core::Position pos) const
+    IChessPiece *ChessBoard::getPieceAt(const Position& pos) const
     {
         auto it = m_Board.find(pos);
         if (it == m_Board.end())
@@ -13,71 +13,111 @@ namespace boardgame::board::chess
         return it->second.get();
     }
 
-    bool ChessBoard::placePiece(
-        boardgame::core::Position pos,
-        std::unique_ptr<boardgame::piece::chess::IChessPiece> piece)
+    void ChessBoard::placePiece(
+        const Position& pos, std::unique_ptr<IChessPiece> piece)
     {
         if (!isInside(pos) || !piece)
         {
-            return false;
+            return;
         }
 
         if (m_Board.find(pos) != m_Board.end())
         {
-            return false;
+            return;
         }
 
         m_Board[pos] = std::move(piece);
-        return true;
     }
 
-    bool ChessBoard::removePiece(boardgame::core::Position pos)
+    std::unique_ptr<IChessPiece> ChessBoard::removePiece(const Position& pos)
     {
         auto it = m_Board.find(pos);
         if (it == m_Board.end())
         {
-            return false;
+            return nullptr;
         }
 
         m_Board.erase(it);
-        return true;
+        return std::move(it->second);
     }
 
-    bool ChessBoard::movePiece(boardgame::core::Position from, boardgame::core::Position to)
+    void ChessBoard::movePiece(const Position& from, const Position& to)
     {
         if (!isInside(from) || !isInside(to))
         {
-            return false;
+            return;
         }
 
         auto fromIt = m_Board.find(from);
         if (fromIt == m_Board.end())
         {
-            return false;
+            return;
         }
 
         if (m_Board.find(to) != m_Board.end())
         {
-            return false;
+            return;
         }
 
         m_Board[to] = std::move(fromIt->second);
         m_Board.erase(fromIt);
-        return true;
+        return;
     }
 
-    bool ChessBoard::isInside(boardgame::core::Position pos) const
+    const std::map<Position, std::unique_ptr<IChessPiece>>& ChessBoard::getPieces() const
+    {
+        return m_Board;
+    }
+
+    std::map<Position, std::unique_ptr<IChessPiece>> ChessBoard::getPieces(ChessPieceColor color) const
+    {
+        std::map<Position, std::unique_ptr<IChessPiece>> result;
+
+        for (const auto &[pos, piece] : m_Board)
+        {
+            if (piece && piece->getColor() == color)
+            {
+                result[pos] = std::unique_ptr<IChessPiece>(piece->clone());
+            }
+        }
+
+        return result;
+    }
+
+    bool ChessBoard::isInside(const Position& pos) const
     {
         return pos.row >= 0 && pos.row < 8 &&
                pos.col >= 0 && pos.col < 8;
     }
 
-    boardgame::core::Position ChessBoard::findKing(boardgame::piece::chess::ChessPieceColor color) const
+    bool ChessBoard::isEmpty(const Position& pos) const
+    {
+        return getPieceAt(pos) == nullptr;
+    }
+
+    bool ChessBoard::hasPiece(const Position& pos) const
+    {
+        return getPieceAt(pos) != nullptr;
+    }
+
+    bool ChessBoard::hasEnemyPiece(const Position& pos, ChessPieceColor color) const
+    {
+        auto piece = getPieceAt(pos);
+        return piece && piece->getColor() != color;
+    }
+
+    bool ChessBoard::hasFriendlyPiece(const Position& pos, ChessPieceColor color) const
+    {
+        auto piece = getPieceAt(pos);
+        return piece && piece->getColor() == color;
+    }
+
+    Position ChessBoard::findKing(ChessPieceColor color) const
     {
         for (const auto &[pos, piece] : m_Board)
         {
             if (piece &&
-                piece->getType() == boardgame::piece::chess::ChessPieceType::King &&
+                piece->getType() == ChessPieceType::King &&
                 piece->getColor() == color)
             {
                 return pos;
@@ -87,42 +127,14 @@ namespace boardgame::board::chess
         return boardgame::core::Position{-1, -1}; // TODO maybe throw error or something 
     }
 
-    std::map<boardgame::core::Position, boardgame::piece::chess::IChessPiece *> ChessBoard::getAllPieces() const
+    void ChessBoard::setLastMove(const IChessMove& move) 
     {
-        std::map<boardgame::core::Position, boardgame::piece::chess::IChessPiece *> result;
-
-        for (const auto &[pos, piece] : m_Board)
-        {
-            result[pos] = piece.get();
-        }
-
-        return result;
+        m_LastMove = move;
     }
 
-    std::map<boardgame::core::Position, boardgame::piece::chess::IChessPiece *> ChessBoard::getPieces(
-        boardgame::piece::chess::ChessPieceColor color) const
+    std::optional<IChessMove> ChessBoard::getLastMove() const
     {
-        std::map<boardgame::core::Position, boardgame::piece::chess::IChessPiece *> result;
-
-        for (const auto &[pos, piece] : m_Board)
-        {
-            if (piece && piece->getColor() == color)
-            {
-                result[pos] = piece.get();
-            }
-        }
-
-        return result;
-    }
-
-    void ChessBoard::setLastMove(std::unique_ptr<boardgame::move::chess::IChessMove> move)
-    {
-        m_LastMove = std::move(move);
-    }
-
-    const boardgame::move::chess::IChessMove* ChessBoard::lastMove() const
-    {
-        return m_LastMove.get();
+        return m_LastMove ? std::make_optional(*m_LastMove) : std::nullopt;
     }
 
     std::unique_ptr<IChessBoard> ChessBoard::clone() const
