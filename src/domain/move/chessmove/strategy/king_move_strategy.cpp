@@ -59,7 +59,7 @@ namespace boardgame::move::chess
                     rook->getColor() == piece.getColor())
                 {
                     moves.push_back(
-                        std::make_unique<IChessMove>(
+                        std::make_unique<ChessMove>(
                             from,
                             g,
                             ChessMoveType::Castling));
@@ -81,7 +81,7 @@ namespace boardgame::move::chess
                     rook->getColor() == piece.getColor())
                 {
                     moves.push_back(
-                        std::make_unique<IChessMove>(
+                        std::make_unique<ChessMove>(
                             from,
                             c,
                             ChessMoveType::Castling));

@@ -8,6 +8,7 @@
 #include "interfaces/board/chessboard/IChessBoard.hpp"
 #include "interfaces/move/chessmove/IChessMove.hpp"
 #include "interfaces/piece/chesspiece/IChessPiece.hpp"
+#include "domain/move/chessmove/chess_move.hpp"
 #include "core/common/position.hpp"
 
 

@@ -40,7 +40,7 @@ namespace boardgame::move::chess
                 if (!targetPiece)
                 {
                     moves.push_back(
-                        std::make_unique<IChessMove>(from, current)
+                        std::make_unique<ChessMove>(from, current)
                     );
                     continue;
                 }
@@ -48,7 +48,7 @@ namespace boardgame::move::chess
                 if (targetPiece->getColor() != piece.getColor())
                 {
                     moves.push_back(
-                        std::make_unique<IChessMove>(from, current)
+                        std::make_unique<ChessMove>(from, current)
                     );
                 }
 

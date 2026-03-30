@@ -26,12 +26,12 @@ namespace boardgame::move::chess
         {
             if (oneStepForward.row == promotionRow)
             {
-                moves.push_back(std::make_unique<IChessMove>(
+                moves.push_back(std::make_unique<ChessMove>(
                     from, oneStepForward, ChessMoveType::Promotion));
             }
             else
             {
-                moves.push_back(std::make_unique<IChessMove>(
+                moves.push_back(std::make_unique<ChessMove>(
                     from, oneStepForward, ChessMoveType::Normal));
             }
 
@@ -44,7 +44,7 @@ namespace boardgame::move::chess
                 board.isInside(twoStepsForward) &&
                 !board.getPieceAt(twoStepsForward))
             {
-                moves.push_back(std::make_unique<IChessMove>(
+                moves.push_back(std::make_unique<ChessMove>(
                     from, twoStepsForward, ChessMoveType::PawnDoubleMove));
             }
         }
@@ -62,12 +62,12 @@ namespace boardgame::move::chess
             {
                 if (captureLeft.row == promotionRow)
                 {
-                    moves.push_back(std::make_unique<IChessMove>(
+                    moves.push_back(std::make_unique<ChessMove>(
                         from, captureLeft, ChessMoveType::Promotion));
                 }
                 else
                 {
-                    moves.push_back(std::make_unique<IChessMove>(
+                    moves.push_back(std::make_unique<ChessMove>(
                         from, captureLeft, ChessMoveType::Normal));
                 }
             }
@@ -86,12 +86,12 @@ namespace boardgame::move::chess
             {
                 if (captureRight.row == promotionRow)
                 {
-                    moves.push_back(std::make_unique<IChessMove>(
+                    moves.push_back(std::make_unique<ChessMove>(
                         from, captureRight, ChessMoveType::Promotion));
                 }
                 else
                 {
-                    moves.push_back(std::make_unique<IChessMove>(
+                    moves.push_back(std::make_unique<ChessMove>(
                         from, captureRight, ChessMoveType::Normal));
                 }
             }
@@ -120,7 +120,7 @@ namespace boardgame::move::chess
 
                     if (board.isInside(enPassantTo) && !board.getPieceAt(enPassantTo))
                     {
-                        moves.push_back(std::make_unique<IChessMove>(
+                        moves.push_back(std::make_unique<ChessMove>(
                             from, enPassantTo, ChessMoveType::EnPassant));
                     }
                 }

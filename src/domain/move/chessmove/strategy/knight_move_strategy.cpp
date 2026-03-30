@@ -35,14 +35,14 @@ namespace boardgame::move::chess
 
             if (!targetPiece)
             {
-                moves.push_back(std::make_unique<IChessMove>(from, to));
+                moves.push_back(std::make_unique<ChessMove>(from, to));
                 continue;
             }
 
             if (targetPiece->getColor() != piece.getColor())
             {
 
-                moves.push_back(std::make_unique<IChessMove>(from, to));
+                moves.push_back(std::make_unique<ChessMove>(from, to));
             }
         }
 
