@@ -1,7 +1,24 @@
 #pragma once
 
+//STL
+#include <vector>
+#include <memory>
+
+//core
+#include "core/common/position.hpp"
+
+//Interfaces
+#include "interfaces/board/chessboard/IChessBoard.hpp"
+#include "interfaces/move/IMoveGenerator.hpp"
 #include "interfaces/move/chessmove/IChessMoveGenerator.hpp"
 #include "interfaces/move/chessmove/IChessMoveValidator.hpp"
+
+//using declarations
+using boardgame::core::Position;
+using boardgame::board::chess::IChessBoard;
+using boardgame::piece::chess::IChessPiece;
+using boardgame::move::chess::IChessMove;
+using boardgame::move::chess::IChessMoveValidator;
 
 namespace boardgame::move::chess
 {

@@ -1,16 +1,22 @@
 #pragma once
 
+//STL
 #include <vector>
 #include <memory>
 
-#include "interfaces/move/IMoveGenerator.hpp"
+//core
+#include "core/common/position.hpp"
+
+//Interfaces
 #include "interfaces/board/chessboard/IChessBoard.hpp"
+#include "interfaces/move/IMoveGenerator.hpp"
 #include "interfaces/move/chessmove/IChessMove.hpp"
 #include "interfaces/piece/chesspiece/IChessPiece.hpp"
 
-using namespace boardgame::core;
-using namespace boardgame::board::chess;
-using namespace boardgame::piece::chess;
+//using declarations
+using boardgame::core::Position;
+using boardgame::board::chess::IChessBoard;
+using boardgame::piece::chess::IChessPiece;
 
 namespace boardgame::move::chess
 {
@@ -21,7 +27,7 @@ namespace boardgame::move::chess
         /// @details This ensures that derived classes can clean up resources properly when deleted through a pointer
         virtual ~IChessMoveGenerator() = default;
 
-        /// @brief Generates all legal moves for a given chess piece on the board.
+        /// @brief Generates all legal moves for a given  board.
         /// @param board The chess board to generate moves for.
         /// @return A vector of unique pointers to the generated legal moves.
         virtual std::vector<std::unique_ptr<IChessMove>> generateMoves(const IChessBoard &board) const = 0;
