@@ -2,7 +2,8 @@
 
 namespace boardgame::piece::chess{
 
-    PawnPiece::PawnPiece(ChessPieceColor color) : m_PieceColor{color} {}
+    PawnPiece::PawnPiece(std::unique_ptr<boardgame::move::chess::IChessMoveStrategy> moveStrategy, ChessPieceColor color)
+        : m_MoveStrategy(std::move(moveStrategy)), m_PieceColor(color) {}
 
     ChessPieceType PawnPiece::getType() const {
         return m_PieceType;
@@ -12,7 +13,7 @@ namespace boardgame::piece::chess{
         return m_PieceColor;
     }
 
-    const boardgame::move::chess::IChessMoveStrategy& PawnPiece::getMoveStrategy() const {
+    const std::unique_ptr<boardgame::move::chess::IChessMoveStrategy>& PawnPiece::getMoveStrategy() const {
         return m_MoveStrategy;
     }
 

@@ -3,7 +3,7 @@
 #include "interfaces/piece/IPiece.hpp"
 #include "interfaces/move/chessmove/IChessMoveStrategy.hpp"
 
-
+// Forward declaration of the IChessMoveStrategy interface to avoid circular dependencies
 namespace boardgame::move::chess
 {
     class IChessMoveStrategy;
@@ -46,7 +46,7 @@ namespace boardgame::piece::chess
 
         /// @brief Gets the move strategy associated with this chess piece.
         /// @return A reference to the move strategy for this chess piece.
-        virtual const boardgame::move::chess::IChessMoveStrategy& getMoveStrategy() const = 0;
+        virtual const std::unique_ptr<boardgame::move::chess::IChessMoveStrategy>& getMoveStrategy() const = 0;
 
         /// @brief Checks if the chess piece has moved.
         /// @return True if the piece has moved, false otherwise.
