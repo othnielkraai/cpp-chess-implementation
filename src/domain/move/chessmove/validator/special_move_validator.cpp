@@ -59,7 +59,7 @@ namespace boardgame::move::chess
 
         boardgame::core::Position middle{from.row + forward, from.col};
 
-        if (utils::isOccupied(board, middle) || utils::isOccupied(board, to))
+        if (!board.isEmpty(middle) && !board.isEmpty(to))
         {
             return false;
         }
@@ -143,7 +143,7 @@ namespace boardgame::move::chess
             return false;
         }
 
-        if (utils::isOccupied(board, to))
+        if (!board.isEmpty(to))
         {
             return false;
         }
@@ -196,12 +196,12 @@ namespace boardgame::move::chess
         const int dCol = to.col - from.col;
 
         const bool oneForward =
-            (dCol == 0 && dRow == forward && !utils::isOccupied(board, to));
+            (dCol == 0 && dRow == forward && board.isEmpty(to));
 
         const bool diagonalCapture =
             (std::abs(dCol) == 1 &&
              dRow == forward &&
-             utils::isOccupiedByEnemy(board, to, pawn.getColor()));
+             board.hasEnemyPiece(to, pawn.getColor()));
 
         if (!(oneForward || diagonalCapture))
         {

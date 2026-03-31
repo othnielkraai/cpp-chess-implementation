@@ -24,7 +24,7 @@ namespace boardgame::move::chess
         }
 
         if (
-            utils::isDestinationOccupiedByOwnPiece(board, move) &&
+            board.hasFriendlyPiece(move.getTo(), board.getPieceAt(move.getFrom())->getColor()) &&
             move.getMoveType() != ChessMoveType::EnPassant
         )
         {

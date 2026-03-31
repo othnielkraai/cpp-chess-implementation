@@ -2,22 +2,6 @@
 
 namespace boardgame::move::chess::utils
 {
-    // bool isDestinationOccupiedByOwnPiece(
-    //     const boardgame::board::chess::IChessBoard& board,
-    //     const boardgame::move::chess::IChessMove& move
-    // )
-    // {
-    //     auto* sourcePiece = board.getPieceAt(move.getFrom());
-    //     auto* destinationPiece = board.getPieceAt(move.getTo());
-
-    //     if (sourcePiece == nullptr || destinationPiece == nullptr)
-    //     {
-    //         return false;
-    //     }
-
-    //     return sourcePiece->getColor() == destinationPiece->getColor();
-    // }
-
     int rowDelta(const boardgame::move::chess::IChessMove& move)
     {
         return move.getTo().row - move.getFrom().row;

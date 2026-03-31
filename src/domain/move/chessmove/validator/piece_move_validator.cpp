@@ -72,12 +72,12 @@ namespace boardgame::move::chess
         case ChessMoveType::Normal:
         {
             const bool oneForward =
-                (dCol == 0 && dRow == forward && !utils::isOccupied(board, to));
+                (dCol == 0 && dRow == forward && board.isEmpty(to));
 
             const bool diagonalCapture =
                 (std::abs(dCol) == 1 &&
                  dRow == forward &&
-                 utils::isOccupiedByEnemy(board, to, piece.getColor()));
+                 board.hasEnemyPiece(to, piece.getColor()));
 
             if (!(oneForward || diagonalCapture))
             {
@@ -92,10 +92,8 @@ namespace boardgame::move::chess
             return true;
         }
 
-        return m_SpecialMoveValidator->isValidMove(board, move);
-
         default:
-            return false;
+           return m_SpecialMoveValidator->isValidMove(board, move);
         }
     }
 
