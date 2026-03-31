@@ -1,13 +1,7 @@
 #pragma once
 
-#include <memory>
-
-#include "core/Position.hpp"
-
+// Interfaces
 #include "interfaces/player/IPlayer.hpp"
-#include "interfaces/board/chessboard/IChessBoard.hpp"
-#include "interfaces/move/chessmove/IChessMove.hpp"
-#include "interfaces/piece/chesspiece/ChessPieceColor.hpp"
 
 namespace boardgame::player::chess
 {
@@ -16,12 +10,7 @@ namespace boardgame::player::chess
     public:
         virtual ~IChessPlayer() = default;
 
-        /// @brief Gets the color of the player
-        virtual ChessPieceColor getColor() const = 0;
-
-        /// @brief Let the player choose a move
-        virtual std::unique_ptr<IChessMove> chooseMove(
-            const boardgame::board::chess::IChessBoard& board
-        ) = 0;
+        // Returns true if the player is playing as white, false if playing as black
+        virtual bool isWhite() const = 0;
     };
 }

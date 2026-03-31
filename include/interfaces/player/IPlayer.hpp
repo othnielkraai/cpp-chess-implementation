@@ -4,6 +4,7 @@ namespace boardgame::player
 {
     class IPlayer
     {
-        ~IPlayer() = default;
+    public:
+        virtual ~IPlayer() = default;
     };
 }
