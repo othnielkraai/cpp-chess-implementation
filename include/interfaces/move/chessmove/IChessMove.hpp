@@ -1,11 +1,14 @@
 #pragma once
 
+//STL
 #include <memory>
- 
+
+//Interfaces
 #include "interfaces/move/IMove.hpp"
 
 namespace boardgame::move::chess
 {
+    /// @brief Enumeration for different types of chess moves.
     enum class ChessMoveType
     {
         Normal,
