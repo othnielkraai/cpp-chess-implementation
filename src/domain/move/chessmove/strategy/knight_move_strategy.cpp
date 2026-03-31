@@ -1,7 +1,5 @@
 #include "domain/move/chessmove/strategy/knight_move_strategy.hpp"
 
-
-
 namespace boardgame::move::chess
 {
     std::vector<std::unique_ptr<IChessMove>> KnightMoveStrategy::generateMoves(
@@ -47,5 +45,10 @@ namespace boardgame::move::chess
         }
 
         return moves;
+    }
+
+    std::unique_ptr<IChessMoveStrategy> KnightMoveStrategy::clone() const
+    {
+        return std::make_unique<KnightMoveStrategy>(*this);
     }
 }

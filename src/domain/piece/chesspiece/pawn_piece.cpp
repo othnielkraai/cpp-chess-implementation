@@ -27,7 +27,7 @@ namespace boardgame::piece::chess{
 
     std::unique_ptr<IChessPiece> PawnPiece::clone() const
     {
-        auto newPiece = std::make_unique<PawnPiece>(m_PieceColor);
+        auto newPiece = std::make_unique<PawnPiece>(m_MoveStrategy->clone(), m_PieceColor);
         newPiece->setHasMoved(m_HasMoved);
         return newPiece;
     }

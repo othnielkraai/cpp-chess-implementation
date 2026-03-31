@@ -1,6 +1,5 @@
 #include "domain/move/chessmove/strategy/pawn_move_strategy.hpp"
 
-
 namespace boardgame::move::chess
 {
     std::vector<std::unique_ptr<IChessMove>> PawnMoveStrategy::generateMoves(
@@ -128,5 +127,10 @@ namespace boardgame::move::chess
         }
 
         return moves;
+    }
+
+    std::unique_ptr<IChessMoveStrategy> PawnMoveStrategy::clone() const
+    {
+        return std::make_unique<PawnMoveStrategy>(*this);
     }
 }

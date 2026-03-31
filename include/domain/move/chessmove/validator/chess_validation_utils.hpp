@@ -1,6 +1,13 @@
 #pragma once
 
+//STL
+#include <vector>
+#include <memory>
+
+//core
 #include "core/common/position.hpp"
+
+//Interfaces
 #include "interfaces/board/chessboard/IChessBoard.hpp"
 #include "interfaces/move/chessmove/IChessMove.hpp"
 #include "interfaces/piece/chesspiece/IChessPiece.hpp"

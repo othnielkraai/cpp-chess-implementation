@@ -26,10 +26,10 @@ namespace boardgame::piece::chess{
     }
 
     std::unique_ptr<IChessPiece> BishopPiece::clone() const
-    {
-        auto newPiece = std::make_unique<BishopPiece>(m_PieceColor);
-        newPiece->setHasMoved(m_HasMoved);
-        return newPiece;
-    }
+{
+    auto newPiece = std::make_unique<BishopPiece>(m_MoveStrategy->clone(), m_PieceColor);
+    newPiece->setHasMoved(m_HasMoved);
+    return newPiece;
+}
 
 }

@@ -58,4 +58,9 @@ namespace boardgame::move::chess
 
         return moves;
     }
+
+    std::unique_ptr<IChessMoveStrategy> QueenMoveStrategy::clone() const
+    {
+        return std::make_unique<QueenMoveStrategy>(*this);
+    }
 }

@@ -1,8 +1,5 @@
 #include "domain/move/chessmove/strategy/rook_move_strategy.hpp"
 
-#include <array>
-
-#include "domain/move/chessmove/chess_move.hpp"
 
 namespace boardgame::move::chess
 {
@@ -57,5 +54,10 @@ namespace boardgame::move::chess
         }
 
         return moves;
+    }
+
+    std::unique_ptr<IChessMoveStrategy> RookMoveStrategy::clone() const
+    {
+        return std::make_unique<RookMoveStrategy>(*this);
     }
 }

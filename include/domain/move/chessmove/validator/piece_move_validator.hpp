@@ -1,10 +1,29 @@
 #pragma once
 
-#include "domain/move/chessmove/validator/special_move_validator.hpp"
+//STL
+#include <vector>
+#include <memory>
+
+//core
+#include "core/common/position.hpp"
+
+//Interfaces
 #include "interfaces/board/chessboard/IChessBoard.hpp"
 #include "interfaces/move/chessmove/IChessMove.hpp"
 #include "interfaces/piece/chesspiece/IChessPiece.hpp"
 #include "interfaces/move/chessmove/IChessMoveValidator.hpp"
+
+//domain
+#include "domain/move/chessmove/validator/chess_validation_utils.hpp"
+#include "domain/move/chessmove/validator/king_safety_validator.hpp"
+#include "domain/move/chessmove/validator/basic_move_validator.hpp"
+
+//using declarations
+using boardgame::board::chess::IChessBoard;
+using boardgame::move::chess::IChessMove;
+using boardgame::piece::chess::ChessPieceColor;
+using boardgame::move::chess::IChessMoveValidator;
+using boardgame::core::Position;
 
 namespace boardgame::move::chess
 {
@@ -14,46 +33,46 @@ namespace boardgame::move::chess
         PieceMoveValidator(std::unique_ptr<IChessMoveValidator> validator);
 
         virtual bool isValidMove(
-            const boardgame::board::chess::IChessBoard& board,
-            const boardgame::move::chess::IChessMove& move
+            const IChessBoard& board,
+            const IChessMove& move
         ) const override;
 
     private:
         bool isMoveShapeValid(
-            const boardgame::board::chess::IChessBoard& board,
-            const boardgame::move::chess::IChessMove& move,
-            const boardgame::piece::chess::IChessPiece& piece
+            const IChessBoard& board,
+            const IChessMove& move,
+            const IChessPiece& piece
         ) const;
 
         bool isPawnMoveValid(
-            const boardgame::board::chess::IChessBoard& board,
-            const boardgame::move::chess::IChessMove& move,
-            const boardgame::piece::chess::IChessPiece& piece
+            const IChessBoard& board,
+            const IChessMove& move,
+            const IChessPiece& piece
         ) const;
 
         bool isKnightMoveValid(
-            const boardgame::move::chess::IChessMove& move
+            const IChessMove& move
         ) const;
 
         bool isBishopMoveValid(
-            const boardgame::board::chess::IChessBoard& board,
-            const boardgame::move::chess::IChessMove& move
+            const IChessBoard& board,
+            const IChessMove& move
         ) const;
 
         bool isRookMoveValid(
-            const boardgame::board::chess::IChessBoard& board,
-            const boardgame::move::chess::IChessMove& move
+            const IChessBoard& board,
+            const IChessMove& move
         ) const;
 
         bool isQueenMoveValid(
-            const boardgame::board::chess::IChessBoard& board,
-            const boardgame::move::chess::IChessMove& move
+            const IChessBoard& board,
+            const IChessMove& move
         ) const;
 
         bool isKingMoveValid(
-            const boardgame::board::chess::IChessBoard& board,
-            const boardgame::move::chess::IChessMove& move,
-            const boardgame::piece::chess::IChessPiece& piece
+            const IChessBoard& board,
+            const IChessMove& move,
+            const IChessPiece& piece
         ) const;
 
     private:

@@ -1,17 +1,24 @@
 #pragma once
 
+//STL
 #include <vector>
 #include <memory>
 
+//core
+#include "core/common/position.hpp"
+
+//Interfaces
+#include "interfaces/move/IMoveStrategy.hpp"
 #include "interfaces/move/chessmove/IChessMoveStrategy.hpp"
 #include "interfaces/move/IMoveStrategy.hpp"
 #include "interfaces/board/chessboard/IChessBoard.hpp"
 #include "interfaces/move/chessmove/IChessMove.hpp"
 #include "interfaces/piece/chesspiece/IChessPiece.hpp"
+
+//domain
 #include "domain/move/chessmove/chess_move.hpp"
-#include "core/common/position.hpp"
 
-
+//using declarations for commonly used types
 using namespace boardgame::core;
 using namespace boardgame::board::chess;
 using namespace boardgame::piece::chess;
@@ -26,5 +33,8 @@ namespace boardgame::move::chess
             const IChessPiece& piece,
             const Position& from
         ) const override;
+    
+        virtual std::unique_ptr<IChessMoveStrategy> clone() const override;
+    
     };
 }

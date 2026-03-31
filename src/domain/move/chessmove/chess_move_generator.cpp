@@ -19,7 +19,7 @@ namespace boardgame::move::chess
                 continue;
             }
 
-            auto pieceMoves = piece->getMoveStrategy().generateMoves(board, *piece, pos);
+            auto pieceMoves = piece->getMoveStrategy()->generateMoves(board, *piece, pos);
 
             for (auto &move : pieceMoves)
             {

@@ -1,9 +1,24 @@
 #pragma once
 
+//STL
+#include <vector>
+#include <memory>
+
+//core
+#include "core/common/position.hpp"
+
+//Interfaces
 #include "interfaces/board/chessboard/IChessBoard.hpp"
 #include "interfaces/move/chessmove/IChessMove.hpp"
 #include "interfaces/piece/chesspiece/IChessPiece.hpp"
 #include "interfaces/move/chessmove/IChessMoveValidator.hpp"
+
+//using declarations
+using boardgame::board::chess::IChessBoard;
+using boardgame::move::chess::IChessMove;
+using boardgame::piece::chess::ChessPieceColor;
+using boardgame::move::chess::IChessMoveValidator;
+using boardgame::core::Position;
 
 namespace boardgame::move::chess
 {
@@ -11,37 +26,37 @@ namespace boardgame::move::chess
     {
     public:
         virtual bool isValidMove(
-            const boardgame::board::chess::IChessBoard& board,
-            const boardgame::move::chess::IChessMove& move
+            const IChessBoard& board,
+            const IChessMove& move
         ) const override;
 
     private: 
         bool leavesKingInCheck(
-            const boardgame::board::chess::IChessBoard& board,
-            const boardgame::move::chess::IChessMove& move
+            const IChessBoard& board,
+            const IChessMove& move
         ) const;
 
         bool isKingInCheck(
-            const boardgame::board::chess::IChessBoard& board,
-            boardgame::piece::chess::ChessPieceColor color
+            const IChessBoard& board,
+            ChessPieceColor color
         ) const;
 
         bool isSquareAttacked(
-            const boardgame::board::chess::IChessBoard& board,
+            const IChessBoard& board,
             const boardgame::core::Position& square,
-            boardgame::piece::chess::ChessPieceColor attackingColor
+            ChessPieceColor attackingColor
         ) const;
 
         bool simulateMoveOnBoard(
-            boardgame::board::chess::IChessBoard& board,
-            const boardgame::move::chess::IChessMove& move
+            IChessBoard& board,
+            const IChessMove& move
         ) const;
 
         bool canPieceAttackSquare(
-            const boardgame::board::chess::IChessBoard& board,
-            const boardgame::core::Position& from,
-            const boardgame::piece::chess::IChessPiece& piece,
-            const boardgame::core::Position& target
+            const IChessBoard& board,
+            const Position& from,
+            const IChessPiece& piece,
+            const Position& target
         ) const;
     };
 }

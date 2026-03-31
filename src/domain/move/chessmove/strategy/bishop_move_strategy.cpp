@@ -1,5 +1,4 @@
 #include "domain/move/chessmove/strategy/bishop_move_strategy.hpp"
-#include "interfaces/move/chessmove/IChessMoveStrategy.hpp"
 
 namespace boardgame::move::chess
 {
@@ -48,5 +47,10 @@ namespace boardgame::move::chess
         }
 
         return moves;
+    }
+
+    std::unique_ptr<IChessMoveStrategy> BishopMoveStrategy::clone() const
+    {
+        return std::make_unique<BishopMoveStrategy>(*this);
     }
 }

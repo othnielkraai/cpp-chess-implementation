@@ -15,7 +15,7 @@ namespace boardgame::move::chess
     class ChessMove : public IChessMove
     {
     public:
-        // constructors
+        // constructor
         ChessMove(
             const boardgame::core::Position &from,
             const boardgame::core::Position &to,

@@ -1,8 +1,13 @@
 #pragma once
 
+//Interfaces
 #include "interfaces/board/chessboard/IChessBoard.hpp"
 #include "interfaces/move/chessmove/IChessMove.hpp"
 #include "interfaces/move/IMoveValidator.hpp"
+
+//using declarations
+using boardgame::board::chess::IChessBoard;
+using boardgame::move::chess::IChessMove;
 
 namespace boardgame::move::chess
 {
@@ -17,6 +22,6 @@ namespace boardgame::move::chess
         /// @param board The chess board to validate the move against.
         /// @param move The chess move to validate.
         /// @return True if the move is valid, false otherwise.
-        virtual bool isValidMove(const boardgame::board::chess::IChessBoard &board, const boardgame::move::chess::IChessMove &move) const = 0;
+        virtual bool isValidMove(const IChessBoard &board, const IChessMove &move) const = 0;
     };
 }
