@@ -1,5 +1,8 @@
 #pragma once
 
+//STL
+#include <memory>
+
 //Interfaces
 #include "interfaces/piece/chesspiece/IChessPiece.hpp"
 #include "interfaces/move/chessmove/IChessMoveStrategy.hpp"
