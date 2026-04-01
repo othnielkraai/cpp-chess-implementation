@@ -12,6 +12,7 @@
 #include "domain/piece/chesspiece/chess_piece_factory.hpp"
 #include "domain/move/chessmove/chess_move_generator_factory.hpp"
 #include "domain/move/chessmove/chess_move_generator.hpp"
+#include "domain/board/chessboard/board_builder.hpp"
 
 using namespace boardgame::board::chess;
 using namespace boardgame::piece::chess;
@@ -74,42 +75,11 @@ void printBoard(const IChessBoard &board)
     std::cout << "\n   a b c d e f g h\n\n";
 }
 
-std::unique_ptr<IChessBoard> createInitialBoard()
-{
-    auto board = std::make_unique<ChessBoard>();
 
-    // Place black pieces
-    board->placePiece({0, 0}, ChessPieceFactory::create(ChessPieceType::Rook, ChessPieceColor::Black));
-    board->placePiece({0, 1}, ChessPieceFactory::create(ChessPieceType::Knight, ChessPieceColor::Black));
-    board->placePiece({0, 2}, ChessPieceFactory::create(ChessPieceType::Bishop, ChessPieceColor::Black));
-    board->placePiece({0, 3}, ChessPieceFactory::create(ChessPieceType::Queen, ChessPieceColor::Black));
-    board->placePiece({0, 4}, ChessPieceFactory::create(ChessPieceType::King, ChessPieceColor::Black));
-    board->placePiece({0, 5}, ChessPieceFactory::create(ChessPieceType::Bishop, ChessPieceColor::Black));
-    board->placePiece({0, 6}, ChessPieceFactory::create(ChessPieceType::Knight, ChessPieceColor::Black));
-    board->placePiece({0, 7}, ChessPieceFactory::create(ChessPieceType::Rook, ChessPieceColor::Black));
-
-    for (int col = 0; col < 8; ++col)
-        board->placePiece({1, col}, ChessPieceFactory::create(ChessPieceType::Pawn, ChessPieceColor::Black));
-
-    // Place white pieces
-    board->placePiece({7, 0}, ChessPieceFactory::create(ChessPieceType::Rook, ChessPieceColor::White));
-    board->placePiece({7, 1}, ChessPieceFactory::create(ChessPieceType::Knight, ChessPieceColor::White));
-    board->placePiece({7, 2}, ChessPieceFactory::create(ChessPieceType::Bishop, ChessPieceColor::White));
-    board->placePiece({7, 3}, ChessPieceFactory::create(ChessPieceType::Queen, ChessPieceColor::White));
-    board->placePiece({7, 4}, ChessPieceFactory::create(ChessPieceType::King, ChessPieceColor::White));
-    board->placePiece({7, 5}, ChessPieceFactory::create(ChessPieceType::Bishop, ChessPieceColor::White));
-    board->placePiece({7, 6}, ChessPieceFactory::create(ChessPieceType::Knight, ChessPieceColor::White));
-    board->placePiece({7, 7}, ChessPieceFactory::create(ChessPieceType::Rook, ChessPieceColor::White));
-
-    for (int col = 0; col < 8; ++col)
-        board->placePiece({6, col}, ChessPieceFactory::create(ChessPieceType::Pawn, ChessPieceColor::White));
-
-    return board;
-}
 
 int main()
 {
-    auto board = createInitialBoard();
+    auto board = BoardBuilder{}.buildDefaultBoard().build();
     auto moveGenerator = ChessMoveGeneratorFactory::create();
     printBoard(*board);
 
