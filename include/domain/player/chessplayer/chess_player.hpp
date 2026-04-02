@@ -1,7 +1,6 @@
 #pragma once
 
 // Interfaces
-#include "interfaces/player/IPlayer.hpp"
 #include "interfaces/player/chessplayer/IChessPlayer.hpp"
 
 namespace boardgame::player::chess

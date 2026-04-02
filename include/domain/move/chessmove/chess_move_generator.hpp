@@ -9,7 +9,7 @@
 
 //Interfaces
 #include "interfaces/board/chessboard/IChessBoard.hpp"
-#include "interfaces/move/IMoveGenerator.hpp"
+
 #include "interfaces/move/chessmove/IChessMoveGenerator.hpp"
 #include "interfaces/move/chessmove/IChessMoveValidator.hpp"
 

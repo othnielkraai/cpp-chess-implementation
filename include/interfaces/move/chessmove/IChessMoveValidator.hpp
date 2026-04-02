@@ -3,7 +3,6 @@
 //Interfaces
 #include "interfaces/board/chessboard/IChessBoard.hpp"
 #include "interfaces/move/chessmove/IChessMove.hpp"
-#include "interfaces/move/IMoveValidator.hpp"
 
 //using declarations
 using boardgame::board::chess::IChessBoard;
@@ -11,7 +10,7 @@ using boardgame::move::chess::IChessMove;
 
 namespace boardgame::move::chess
 {
-    class IChessMoveValidator : public boardgame::move::IMoveValidator
+    class IChessMoveValidator
     {
     public:
         /// @brief Virtual destructor for the chess move validator interface.

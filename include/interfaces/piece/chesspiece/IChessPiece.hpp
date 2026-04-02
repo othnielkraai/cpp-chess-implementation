@@ -1,6 +1,5 @@
 #pragma once
 
-#include "interfaces/piece/IPiece.hpp"
 #include "interfaces/move/chessmove/IChessMoveStrategy.hpp"
 
 // Forward declaration of the IChessMoveStrategy interface to avoid circular dependencies
@@ -29,7 +28,7 @@ namespace boardgame::piece::chess
         Black
     };
 
-    class IChessPiece : public IPiece
+    class IChessPiece
     {
     public:
         /// @brief Virtual destructor for the chess piece interface.

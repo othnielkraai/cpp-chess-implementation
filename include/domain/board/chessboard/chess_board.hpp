@@ -11,7 +11,6 @@
 
 // Interfaces
 #include "interfaces/board/chessboard/IChessBoard.hpp"
-#include "interfaces/board/IBoard.hpp"
 #include "interfaces/piece/chesspiece/IChessPiece.hpp"
 #include "interfaces/move/chessmove/IChessMove.hpp"
 

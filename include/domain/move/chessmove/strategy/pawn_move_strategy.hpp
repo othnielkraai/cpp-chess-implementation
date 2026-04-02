@@ -8,9 +8,9 @@
 #include "core/common/position.hpp"
 
 //Interfaces
-#include "interfaces/move/IMoveStrategy.hpp"
+
 #include "interfaces/move/chessmove/IChessMoveStrategy.hpp"
-#include "interfaces/move/IMoveStrategy.hpp"
+
 #include "interfaces/board/chessboard/IChessBoard.hpp"
 #include "interfaces/move/chessmove/IChessMove.hpp"
 #include "interfaces/piece/chesspiece/IChessPiece.hpp"

@@ -1,11 +1,8 @@
 #pragma once
 
-// Interfaces
-#include "interfaces/player/IPlayer.hpp"
-
 namespace boardgame::player::chess
 {
-    class IChessPlayer : public IPlayer
+    class IChessPlayer
     {
     public:
         // Virtual destructor to ensure proper cleanup of derived classes

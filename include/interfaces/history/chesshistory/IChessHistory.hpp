@@ -5,7 +5,6 @@
 
 #include "interfaces/move/chessmove/IChessMove.hpp"
 #include "interfaces/piece/chesspiece/IChessPiece.hpp"
-#include "interfaces/history/IHistory.hpp"
 
 using boardgame::move::chess::IChessMove;
 using boardgame::piece::chess::ChessPieceType;
@@ -22,7 +21,7 @@ namespace boardgame::history::chess
         std::optional<ChessPieceType> promotionPiece;
     };
 
-    class IChessHistory : public IHistory
+    class IChessHistory
     {
     public:
         virtual ~IChessHistory() = default;

@@ -7,7 +7,7 @@
 #include "core/common/position.hpp"
 
 //Interfaces
-#include "interfaces/move/IMove.hpp"
+
 #include "interfaces/move/chessmove/IChessMove.hpp"
 
 namespace boardgame::move::chess

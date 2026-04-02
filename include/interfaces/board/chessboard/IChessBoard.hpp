@@ -5,7 +5,6 @@
 #include <memory>
 #include <optional>
 
-#include "interfaces/board/IBoard.hpp"
 #include "interfaces/piece/chesspiece/IChessPiece.hpp"
 #include "interfaces/move/chessmove/IChessMove.hpp"
 
@@ -26,7 +25,7 @@ using namespace boardgame::piece::chess;
 
 namespace boardgame::board::chess
 {
-    class IChessBoard : public IBoard
+    class IChessBoard
     {
     public:
         /// @brief Virtual destructor for the chess board interface.

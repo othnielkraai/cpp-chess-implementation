@@ -8,7 +8,6 @@
 #include "core/common/position.hpp"
 
 //Interfaces
-#include "interfaces/move/IMoveStrategy.hpp"
 #include "interfaces/board/chessboard/IChessBoard.hpp"
 #include "interfaces/move/chessmove/IChessMove.hpp"
 #include "interfaces/piece/chesspiece/IChessPiece.hpp"
@@ -38,7 +37,7 @@ using namespace boardgame::piece::chess;
 
 namespace boardgame::move::chess
 {
-    class IChessMoveStrategy : public boardgame::move::IMoveStrategy
+    class IChessMoveStrategy
     {
     public:
         /// @brief Virtual destructor for the chess move strategy interface.

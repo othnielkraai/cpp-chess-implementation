@@ -9,7 +9,6 @@
 
 //Interfaces
 #include "interfaces/board/chessboard/IChessBoard.hpp"
-#include "interfaces/move/IMoveGenerator.hpp"
 #include "interfaces/move/chessmove/IChessMove.hpp"
 #include "interfaces/piece/chesspiece/IChessPiece.hpp"
 
@@ -20,7 +19,7 @@ using boardgame::piece::chess::IChessPiece;
 
 namespace boardgame::move::chess
 {
-    class IChessMoveGenerator : public boardgame::move::IMoveGenerator
+    class IChessMoveGenerator
     {
     public:
         /// @brief Virtual destructor for the chess move generator interface.
