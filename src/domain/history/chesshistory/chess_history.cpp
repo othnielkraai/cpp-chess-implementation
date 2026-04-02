@@ -12,8 +12,36 @@ namespace boardgame::history::chess
         m_records.push_back(std::move(record));
     }
 
-    const std::vector<std::unique_ptr<ChessRecord>>& ChessHistory::getHistory() const
+    std::vector<std::unique_ptr<ChessRecord>>& ChessHistory::getHistory()
     {
         return m_records;
+    }
+
+    std::optional<std::unique_ptr<IChessMove>> ChessHistory::undo()
+    {
+        if (m_records.empty())
+        {
+            return std::nullopt;
+        }
+
+        auto lastRecord = std::move(m_records.back());
+        m_records.pop_back();
+
+        return std::make_optional(std::move(lastRecord->move));
+    }
+    
+    std::optional<std::unique_ptr<IChessMove>> ChessHistory::redo()
+    {
+        if (m_undoneRecords.empty())
+        {
+            return std::nullopt;
+        }
+
+        auto lastUndoneRecord = std::move(m_undoneRecords.back());
+        m_undoneRecords.pop_back();
+
+        m_records.push_back(std::move(lastUndoneRecord));
+
+        return std::make_optional(std::move(m_records.back()->move));
     }
 }

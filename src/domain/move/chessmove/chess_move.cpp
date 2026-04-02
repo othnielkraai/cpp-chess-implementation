@@ -30,4 +30,14 @@ namespace boardgame::move::chess
     {
         return std::make_unique<ChessMove>(m_from, m_to);
     }
+
+    std::optional<ChessPieceType> ChessMove::getPromotedPieceType() const
+    {
+        return m_promotedPieceType;
+    }
+
+    void ChessMove::setPromotedPieceType(ChessPieceType promotedPieceType)
+    {
+        m_promotedPieceType = promotedPieceType;
+    }
 }

@@ -19,14 +19,35 @@ namespace boardgame::move::chess
                 continue;
             }
 
-            auto pieceMoves = piece->getMoveStrategy()->generateMoves(board, *piece, pos);
+            auto pieceMoves = generateMoves(board, pos);
 
             for (auto &move : pieceMoves)
             {
-                if (m_MoveValidator->isValidMove(board, *move))
-                {
-                    moves.push_back(std::move(move));
-                }
+                moves.push_back(std::move(move));
+            }
+        }
+
+        return moves;
+    }
+
+    std::vector<std::unique_ptr<IChessMove>> ChessMoveGenerator::generateMoves(const boardgame::board::chess::IChessBoard &board, const Position &from) const
+    {
+        std::vector<std::unique_ptr<IChessMove>> moves;
+
+        auto piece = board.getPieceAt(from);
+
+        if (!piece)
+        {
+            return moves;
+        }
+
+        auto pieceMoves = piece->getMoveStrategy()->generateMoves(board, *piece, from);
+
+        for (auto &move : pieceMoves)
+        {
+            if (m_MoveValidator->isValidMove(board, *move))
+            {
+                moves.push_back(std::move(move));
             }
         }
 

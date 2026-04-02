@@ -30,5 +30,11 @@ namespace boardgame::move::chess
         /// @param board The chess board to generate moves for.
         /// @return A vector of unique pointers to the generated legal moves.
         virtual std::vector<std::unique_ptr<IChessMove>> generateMoves(const IChessBoard &board) const = 0;
+
+        /// @brief Generates all legal moves for a piece at given position.
+        /// @param board The chess board to generate moves for. 
+        /// @param from The position of the piece to generate moves for.
+        /// @return A vector of unique pointers to the generated legal moves.
+        virtual std::vector<std::unique_ptr<IChessMove>> generateMoves(const IChessBoard &board, const Position& from) const = 0;
     };
 }

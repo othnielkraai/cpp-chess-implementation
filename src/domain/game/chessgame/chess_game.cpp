@@ -114,19 +114,7 @@ namespace boardgame::game::chess
             throw std::logic_error("ChessGame::getLegalMoves - move generator not set");
         }
 
-        auto legalMoves = m_MoveGenerator->generateMoves(*m_Board);
-
-        for (auto it = legalMoves.begin(); it != legalMoves.end();)
-        {
-            if ((*it)->getFrom() == position)
-            {
-                ++it;
-            }
-            else
-            {
-                it = legalMoves.erase(it);
-            }
-        }
+        auto legalMoves = m_MoveGenerator->generateMoves(*m_Board, position);
 
         return legalMoves;
     }
@@ -179,14 +167,12 @@ namespace boardgame::game::chess
                 m_Board->getPieceAt(move.getTo())->getType(),
                 m_Board->getPieceAt(move.getTo())->getColor(),
                 move.getMoveType() == ChessMoveType::Normal ? std::optional<ChessPieceType>{m_Board->getPieceAt(move.getTo())->getType()} : std::nullopt,
-                move.getMoveType() == ChessMoveType::Promotion ? std::optional<ChessPieceType>{m_Board->getPieceAt(move.getTo())->getType()} : std::nullopt});
+                move.getMoveType() == ChessMoveType::Promotion ? std::optional<ChessPieceType>{move.getPromotedPieceType()} : std::nullopt});
 
         m_History->addRecord(std::move(record));
         switchPlayer();
         updateGameState();
         return true;
-
-        return false;
     }
 
     bool ChessGame::undoMove()
@@ -201,21 +187,17 @@ namespace boardgame::game::chess
             throw std::logic_error("ChessGame::undoMove - board not set");
         }
 
-        // PAS DIT AAN NAAR JOUW EIGEN HISTORY / BOARD API
-        //
-        // Voorbeeld:
-        // auto move = m_History->undo();
-        // if (!move)
-        // {
-        //     return false;
-        // }
-        //
-        // m_Board->undoMove(*move);
-        // switchPlayer();
-        // updateGameState();
-        // return true;
+        auto lastRecord = m_History->undo();
+        if (!lastRecord)
+        {
+            return false;
+        }
 
-        return false;
+        m_Board->movePiece(lastRecord.value()->getTo(), lastRecord.value()->getFrom());
+
+        switchPlayer();
+
+        return true;
     }
 
     bool ChessGame::redoMove()
@@ -230,21 +212,17 @@ namespace boardgame::game::chess
             throw std::logic_error("ChessGame::redoMove - board not set");
         }
 
-        // PAS DIT AAN NAAR JOUW EIGEN HISTORY / BOARD API
-        //
-        // Voorbeeld:
-        // auto move = m_History->redo();
-        // if (!move)
-        // {
-        //     return false;
-        // }
-        //
-        // m_Board->applyMove(*move);
-        // switchPlayer();
-        // updateGameState();
-        // return true;
+        auto lastUndoneRecord = m_History->redo();
+        if (!lastUndoneRecord)
+        {
+            return false;
+        }
 
-        return false;
+        m_Board->movePiece(lastUndoneRecord.value()->getFrom(), lastUndoneRecord.value()->getTo());
+
+        switchPlayer();
+
+        return true;
     }
 
     GameState ChessGame::getGameState() const
@@ -289,13 +267,98 @@ namespace boardgame::game::chess
 
     void ChessGame::updateGameState()
     {
-        // PAS DIT LATER AAN MET JOUW EIGEN LOGICA
-        //
-        // Bijvoorbeeld:
-        // - check of current player in check staat
-        // - check of er legal moves zijn
-        // - dan Check / Checkmate / Stalemate / Ongoing zetten
+        if (!m_Board || !m_MoveGenerator || !m_CurrentPlayer)
+        {
+            m_GameState = GameState::Ongoing;
+            return;
+        }
 
-        m_GameState = GameState::Ongoing;
+        ChessPieceColor currentColor = m_CurrentPlayer->isWhite() ? ChessPieceColor::White
+                                     : ChessPieceColor::Black;
+                                     
+        ChessPieceColor enemyColor =
+            currentColor == ChessPieceColor::White
+                ? ChessPieceColor::Black
+                : ChessPieceColor::White;
+
+        // zoek king van current player
+        std::optional<Position> kingPosition = std::nullopt;
+
+        for (const auto &[pos, piece] : m_Board->getPieces())
+        {
+            if (!piece)
+                continue;
+
+            if (piece->getType() == ChessPieceType::King &&
+                piece->getColor() == currentColor)
+            {
+                kingPosition = pos;
+                break;
+            }
+        }
+
+        if (!kingPosition)
+        {
+            m_GameState = GameState::Draw;
+            return;
+        }
+
+        // check of king in check staat
+        bool inCheck = false;
+
+        auto allMoves = m_MoveGenerator->generateMoves(*m_Board);
+
+        for (const auto &move : allMoves)
+        {
+            auto piece = m_Board->getPieceAt(move->getFrom());
+            if (!piece)
+                continue;
+
+            if (piece->getColor() != enemyColor)
+                continue;
+
+            if (move->getTo() == kingPosition.value())
+            {
+                inCheck = true;
+                break;
+            }
+        }
+
+        // check of current player nog moves heeft
+        bool hasLegalMoves = false;
+
+        for (const auto &[pos, piece] : m_Board->getPieces())
+        {
+            if (!piece)
+                continue;
+
+            if (piece->getColor() != currentColor)
+                continue;
+
+            auto moves = m_MoveGenerator->generateMoves(*m_Board, pos);
+
+            if (!moves.empty())
+            {
+                hasLegalMoves = true;
+                break;
+            }
+        }
+
+        if (inCheck && !hasLegalMoves)
+        {
+            m_GameState = GameState::Checkmate;
+        }
+        else if (!inCheck && !hasLegalMoves)
+        {
+            m_GameState = GameState::Stalemate;
+        }
+        else if (inCheck)
+        {
+            m_GameState = GameState::Check;
+        }
+        else
+        {
+            m_GameState = GameState::Ongoing;
+        }
     }
 }

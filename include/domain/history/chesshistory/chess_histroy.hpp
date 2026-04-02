@@ -17,9 +17,14 @@ namespace boardgame::history::chess
         virtual void addRecord(std::unique_ptr<ChessRecord> record) override;
 
 
-        virtual const std::vector<std::unique_ptr<ChessRecord>>& getHistory() const override;
+        virtual std::vector<std::unique_ptr<ChessRecord>>& getHistory() override;
+
+        virtual std::optional<std::unique_ptr<IChessMove>> undo() override;
+
+        virtual std::optional<std::unique_ptr<IChessMove>> redo() override;
 
     private:
         std::vector<std::unique_ptr<ChessRecord>> m_records;
+        std::vector<std::unique_ptr<ChessRecord>> m_undoneRecords;
     };
 }

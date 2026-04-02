@@ -31,7 +31,15 @@ namespace boardgame::history::chess
         virtual void addRecord(std::unique_ptr<ChessRecord> record) = 0;
 
         /// @brief Gets the list of chess records in the history
-        /// @return a const reference to the vector of chess records
-        virtual const std::vector<std::unique_ptr<ChessRecord>>& getHistory() const = 0;
+        /// @return a reference to the vector of chess records
+        virtual std::vector<std::unique_ptr<ChessRecord>>& getHistory() = 0;
+
+        /// @brief Undoes the last move in the chess history and returns the move that was undone
+        /// @return an optional containing the move that was undone, or std::nullopt if there are no moves to undo
+        virtual std::optional<std::unique_ptr<IChessMove>> undo() = 0;
+
+        /// @brief Redoes the last undone move in the chess history and returns the move that was redone
+        /// @return an optional containing the move that was redone, or std::nullopt
+        virtual std::optional<std::unique_ptr<IChessMove>> redo() = 0;
     };
 }

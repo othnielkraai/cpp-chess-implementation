@@ -31,6 +31,8 @@ namespace boardgame::move::chess
 
         virtual std::vector<std::unique_ptr<IChessMove>> generateMoves(const IChessBoard &board) const override;
 
+        virtual std::vector<std::unique_ptr<IChessMove>> generateMoves(const IChessBoard &board, const Position& from) const override;
+
     private:
         std::unique_ptr<IChessMoveValidator> m_MoveValidator;
     };
