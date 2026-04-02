@@ -14,7 +14,7 @@ namespace boardgame::history::chess
     class ChessHistory : public IChessHistory
     {
     public:
-        virtual void addMove(std::unique_ptr<ChessRecord> record) override;
+        virtual void addRecord(std::unique_ptr<ChessRecord> record) override;
 
 
         virtual const std::vector<std::unique_ptr<ChessRecord>>& getHistory() const override;

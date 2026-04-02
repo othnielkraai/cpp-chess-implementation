@@ -7,7 +7,7 @@
 
 namespace boardgame::history::chess
 {
-    void ChessHistory::addMove(std::unique_ptr<ChessRecord> record)
+    void ChessHistory::addRecord(std::unique_ptr<ChessRecord> record)
     {
         m_records.push_back(std::move(record));
     }
