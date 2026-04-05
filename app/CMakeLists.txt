@@ -1,6 +1,6 @@
-add_executable(BoardGame_demo main.cpp)
+add_executable(Run-Chess-API main.cpp)
 
-target_link_libraries(BoardGame_demo
+target_link_libraries(Run-Chess-API
     PRIVATE
-        BoardGameLib
+        ChessGameLib
 )

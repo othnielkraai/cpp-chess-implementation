@@ -9,7 +9,6 @@
 
 
 #include "domain/board/chessboard/chess_board.hpp"
-#include "domain/piece/chesspiece/chess_piece_factory.hpp"
 #include "domain/move/chessmove/chess_move_generator_factory.hpp"
 #include "domain/move/chessmove/chess_move_generator.hpp"
 #include "domain/board/chessboard/board_builder.hpp"

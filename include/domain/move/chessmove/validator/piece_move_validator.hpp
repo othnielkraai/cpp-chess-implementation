@@ -71,8 +71,7 @@ namespace boardgame::move::chess
 
         bool isKingMoveValid(
             const IChessBoard& board,
-            const IChessMove& move,
-            const IChessPiece& piece
+            const IChessMove& move
         ) const;
 
     private:

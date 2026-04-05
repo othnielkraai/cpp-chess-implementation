@@ -47,7 +47,7 @@ namespace boardgame::move::chess
             return isQueenMoveValid(board, move);
 
         case ChessPieceType::King:
-            return isKingMoveValid(board, move, piece);
+            return isKingMoveValid(board, move);
 
         default:
             return false;
@@ -160,8 +160,7 @@ namespace boardgame::move::chess
 
     bool PieceMoveValidator::isKingMoveValid(
         const boardgame::board::chess::IChessBoard& board,
-        const boardgame::move::chess::IChessMove& move,
-        const boardgame::piece::chess::IChessPiece& piece
+        const boardgame::move::chess::IChessMove& move
     ) const
     {
         const int dRow = std::abs(utils::rowDelta(move));

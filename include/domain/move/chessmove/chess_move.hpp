@@ -23,7 +23,9 @@ namespace boardgame::move::chess
         ChessMove(
             const boardgame::core::Position &from,
             const boardgame::core::Position &to,
-            ChessMoveType moveType = ChessMoveType::Normal);
+            ChessMoveType moveType = ChessMoveType::Normal,
+            std::optional<boardgame::piece::chess::ChessPieceType> promotedPiece = std::nullopt
+        );
 
         boardgame::core::Position getFrom() const override;
 
@@ -34,13 +36,11 @@ namespace boardgame::move::chess
         std::unique_ptr<IChessMove> clone() const override;
 
         std::optional<ChessPieceType> getPromotedPieceType() const override;
-    
-        void setPromotedPieceType(ChessPieceType promotedPieceType) override;
 
     private:
         boardgame::core::Position m_from;
         boardgame::core::Position m_to;
         ChessMoveType m_moveType = ChessMoveType::Normal;
-        std::optional<ChessPieceType> m_promotedPieceType;
+        std::optional<boardgame::piece::chess::ChessPieceType> m_promotedPieceType;
     };
 }
