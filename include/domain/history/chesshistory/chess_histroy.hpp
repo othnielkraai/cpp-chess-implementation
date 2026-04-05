@@ -19,9 +19,9 @@ namespace boardgame::history::chess
 
         virtual std::vector<std::unique_ptr<ChessRecord>>& getHistory() override;
 
-        virtual std::optional<std::unique_ptr<IChessMove>> undo() override;
+        virtual std::optional<std::unique_ptr<ChessRecord>> undo() override;
 
-        virtual std::optional<std::unique_ptr<IChessMove>> redo() override;
+        virtual std::optional<std::unique_ptr<ChessRecord>> redo() override;
 
     private:
         std::vector<std::unique_ptr<ChessRecord>> m_records;

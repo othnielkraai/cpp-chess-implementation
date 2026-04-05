@@ -15,7 +15,7 @@ namespace boardgame::history::chess
         return m_records;
     }
 
-    std::optional<std::unique_ptr<IChessMove>> ChessHistory::undo()
+    std::optional<std::unique_ptr<ChessRecord>> ChessHistory::undo()
     {
         if (m_records.empty())
         {
@@ -25,10 +25,10 @@ namespace boardgame::history::chess
         auto lastRecord = std::move(m_records.back());
         m_records.pop_back();
 
-        return std::make_optional(std::move(lastRecord->move));
+        return std::make_optional(std::move(lastRecord));
     }
     
-    std::optional<std::unique_ptr<IChessMove>> ChessHistory::redo()
+    std::optional<std::unique_ptr<ChessRecord>> ChessHistory::redo()
     {
         if (m_undoneRecords.empty())
         {
@@ -40,6 +40,6 @@ namespace boardgame::history::chess
 
         m_records.push_back(std::move(lastUndoneRecord));
 
-        return std::make_optional(std::move(m_records.back()->move));
+        return std::make_optional(std::move(m_records.back()));
     }
 }

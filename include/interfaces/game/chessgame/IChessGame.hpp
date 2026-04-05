@@ -93,11 +93,7 @@ namespace boardgame::game::chess
 
         /// @brief Resets the chess game to its initial state.
         /// @details This function clears the board, resets the players, and clears the move history.
-        virtual void resetGame() = 0;
+        virtual void initializeStandardGame() = 0;
 
-    private:
-        /// @brief Switches the current player in the chess game.
-        /// @details This function changes the turn to the other player.
-        virtual void switchPlayer() = 0;
     };
 }
